@@ -1,0 +1,32 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+main{
+    background-color: rgba(194, 175, 247, 0.966);
+    min-height: 100vh;
+}
+form{
+    width: 40rem;
+}
+.card{
+    border: none;
+    width: 100%;
+
+}
+.table{
+    width: 25rem;
+    background-color: azure;
+}
+#scroll{
+    height: 40em !important;
+    overflow-y: scroll;
+}
+pre{
+    height: 40em !important;
+}
+p{
+    width: 50em;
+    padding: 15px;
+}
