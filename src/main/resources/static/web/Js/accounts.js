@@ -19,7 +19,7 @@ created(){
     loadData(){
         axios.get('http://localhost:8080/api/clients/1')
         .then(response => {
-          console.log(response)
+          // console.log(response)
             this.datos = response.data;
             console.log(this.datos);
           

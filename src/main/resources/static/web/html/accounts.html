@@ -39,18 +39,21 @@
             <h2 class="text-center"> Accounts</h2>
             <table class="table table-striped container m-0 m-auto">
                 <tr>
-                    <td colspan="2" class="titulo-tabla text-center text-white">firstName</td>
-                    <td colspan="2" class="titulo-tabla text-center text-white">lastName</td>
-                    <td colspan="2"class="titulo-tabla text-center text-white">accounts</td>
-                    <td class="titulo-tabla text-center text-white">balance</td>
+                    <td colspan="2" class="titulo-tabla text-center text-white">FirstName</td>
+                    <td colspan="2" class="titulo-tabla text-center text-white">LastName</td>
+                    <td colspan="2"class="titulo-tabla text-center text-white">Accounts</td>
+                    <td class="titulo-tabla text-center text-white">Balance</td>
                     <td class="titulo-tabla text-center text-white">Date</td>
+                    <td class="titulo-tabla text-center text-white">Transaction</td>
                   </tr>
                   <tr v-for="dato of datos.accounts">
                     <td colspan="2" class="text-center">{{datos.firstName}}</td>
                     <td colspan="2" class="text-center">{{datos.lastName}}</td>
                     <td colspan="2" class="text-center">{{dato.number}}</td>
                     <td class="text-center"> {{dato.balance}}</td>
-                    <td class="text-center"> {{dato.creationDate.slice(0,10)}}</td>
+                    <td class="text-center"> {{dato.creationDate.slice(0,10)}} {{dato.creationDate.slice(11,16)}}</td>
+                    
+                    <td class="text-center"><a :href="'./account.html?id='+dato.id"> More </a></td>
                   </tr>
             </table>
         </div>

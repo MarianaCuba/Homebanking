@@ -1,0 +1,35 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header{
+    min-height: 10vh;
+    background: linear-gradient(to right, #0097b2, #1EB663 );
+}
+.imagen-logo{
+    width: 30rem!important;
+}
+main{
+    min-height: 80vh;
+
+}
+ul{
+    margin: 0!important;
+}
+.titulo-tabla{
+    background-color: #1eb662bb!important;
+ }
+
+ footer{
+    min-height: 10vh;
+    background: linear-gradient(to right, #0097b2, #1EB663 );
+ }
+
+.DEBIT{
+    color: red;
+}
+.CREDIT{
+    color: green;
+}
