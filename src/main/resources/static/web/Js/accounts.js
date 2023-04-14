@@ -6,7 +6,8 @@ createApp({
         datos:[],
         firstName: "" ,
         lastName:"",
-        creationDate:""
+        creationDate:"",
+        loans:[]
         
     }
 },
@@ -21,27 +22,13 @@ created(){
         .then(response => {
           // console.log(response)
             this.datos = response.data;
+            this.loans = this.datos.loans
             console.log(this.datos);
           
         } )
          .catch(error => console.log(error));
     },
-    //  addClient(){
-    //     this.postClient();
-    //  },
-    //  postClient(){
-    //     axios.post('http://localhost:8080/api/clients/1', {
-    //         firstName: this.firstName,
-    //         lastName: this.lastName,
-            
-    //       })
-    //       .then(function (response) {
-    //         this.loadData();
-    //       })
-    //       .catch(function (error) {
-    //         console.log(error);
-    //       });
-    //  }
+
 
      }
 

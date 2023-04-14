@@ -1,12 +1,7 @@
 package com.mindhub.homebanking;
 
-import com.mindhub.homebanking.Models.Account;
-import com.mindhub.homebanking.Models.Transaction;
-import com.mindhub.homebanking.Models.TransactionType;
-import com.mindhub.homebanking.Repository.AccountRepository;
-import com.mindhub.homebanking.Repository.ClientRepository;
-import com.mindhub.homebanking.Models.Client;
-import com.mindhub.homebanking.Repository.TransactionRepository;
+import com.mindhub.homebanking.Models.*;
+import com.mindhub.homebanking.Repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.List;
 
 @SpringBootApplication
 public class HomebankingApplication {
@@ -25,14 +21,14 @@ public class HomebankingApplication {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
 
-//	LocalDateTime day = LocalDateTime.now();
+
 	LocalDateTime now = LocalDateTime.now();
-/*	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd ");
-	String formatDateTime = now.format(formatter);*/
+
+
 
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository repository , AccountRepository accountRepository , TransactionRepository transactionRepository) {
+	public CommandLineRunner initData(ClientRepository repository , AccountRepository accountRepository , TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository) {
 		return (args) -> {
 			// save a couple of customers
 			Client client1 = new Client("Melba", "Morel","melba@mindhub.com");
@@ -46,6 +42,17 @@ public class HomebankingApplication {
 			Transaction transaction3 = new Transaction(1350.78, TransactionType.DEBIT,"clothes",now.plusDays(1));
 			Transaction transaction4 = new Transaction(2000, TransactionType.CREDIT,"ingreso", now.plusDays(1));
 			Transaction transaction5 = new Transaction(300,TransactionType.DEBIT, "candies",now);
+
+			Loan loan1 = new Loan( "person", 100000, List.of( 6,12,24));
+			Loan loan2 = new Loan("mortgage", 500000, List.of(12,24,36,48,60));
+			Loan loan3 = new Loan("automotive", 300000,List.of(6,12,24,36));
+
+			loanRepository.save(loan1);
+			loanRepository.save(loan2);
+			loanRepository.save(loan3);
+
+			ClientLoan clientLoan1 = new ClientLoan(400000, 60, "mortgage");
+			ClientLoan clientLoan2 = new ClientLoan(50000,12,"person");
 
 			account1.addTransaction(transaction1);
 			account1.addTransaction(transaction2);
@@ -68,6 +75,13 @@ public class HomebankingApplication {
 			transactionRepository.save(transaction4);
 			transactionRepository.save(transaction5);
 
+			client1.addClientLoan(clientLoan1);
+			loan1.addClientLoan(clientLoan1);
+			clientLoanRepository.save(clientLoan1);
+
+			client1.addClientLoan(clientLoan2);
+			loan2.addClientLoan(clientLoan2);
+			clientLoanRepository.save(clientLoan2);
 
 
 		};

@@ -35,7 +35,7 @@
         </div>
     </header>
     <main id="app">
-        <div class="d-flex gap-3 flex-column align-items-center ">
+        <div class="d-flex gap-5 flex-column align-items-center ">
             <h2 class="text-center"> Accounts</h2>
             <table class="table table-striped container m-0 m-auto">
                 <tr>
@@ -56,6 +56,28 @@
                     <td class="text-center"><a :href="'./account.html?id='+dato.id"> More </a></td>
                   </tr>
             </table>
+
+            <div v-if=" loans.lenght != 0 ">
+                <table class="table table-striped container m-0 m-auto">
+                    <tr>
+                        <td  class="titulo-tabla text-center text-white">Name</td>
+                        <td  class="titulo-tabla text-center text-white">Amount</td>
+                        <td class="titulo-tabla text-center text-white">Payments</td>
+                      </tr>
+                      <tr v-for="loan of loans">
+                        <td  class="text-center">{{loan.name}}</td>
+                        <td  class="text-center">{{loan.amount}}</td>
+                        <td  class="text-center">{{loan.payments}}</td>
+     
+                      </tr>
+                </table>
+             </div> 
+               <div v-else>
+                    <h2> no hay nada </h2>
+               </div> 
+            
+
+
         </div>
 
     

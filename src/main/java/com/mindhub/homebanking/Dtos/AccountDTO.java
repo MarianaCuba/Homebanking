@@ -39,11 +39,9 @@ public class AccountDTO {
         return creationDate;
     }
 
-
     public double getBalance() {
         return balance;
     }
-
 
     public Set<TransactionDTO> getTransaction() {
         return transaction;
