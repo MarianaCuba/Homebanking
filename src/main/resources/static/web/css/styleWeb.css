@@ -11,6 +11,9 @@ header{
 .imagen-logo{
     width: 30rem!important;
 }
+.logo-titulo{
+    
+}
 main{
     min-height: 80vh;
 
@@ -32,4 +35,270 @@ ul{
 }
 .CREDIT{
     color: green;
+}
+.GOLD{
+background-color: rgb(197, 197, 20) !important;
+}
+.TITANIUM{
+background-color: rgb(85, 80, 80) !important;
+}
+.SILVER{
+background-color: rgb(143, 138, 138) !important;
+}
+/* ----------- nav ---------- */
+
+button {
+  background: #fff5;
+  border: none;
+  padding: 10px 20px;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  width: 120px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: skew(-21deg);
+}
+
+.span {
+  display: inline-block;
+  text-decoration: none;
+  color: #171717;
+  transform: skew(21deg);
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  left: 0;
+  background: #0097b2;
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+button:hover a{
+  color: #fff;
+}
+
+button:hover::before {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+/*---------- tarjetas ----------*/
+
+.flip-card {
+  background-color: transparent;
+  width: 240px;
+  height: 154px;
+  perspective: 1000px;
+}
+
+.heading_8264 {
+  position: absolute;
+  letter-spacing: .2em;
+  font-size: 0.5em;
+  top: 2em;
+  left: 18.6em;
+}
+
+.logo {
+  position: absolute;
+  top: 6.8em;
+  left: 11.7em;
+}
+
+.chip {
+  position: absolute;
+  top: 2.3em;
+  left: 1.5em;
+}
+
+.contactless {
+  position: absolute;
+  top: 3.5em;
+  left: 12.4em;
+}
+
+.number {
+  position: absolute;
+  font-weight: bold;
+  font-size: .9em;
+  top: 5.6em;
+  left: 1.2em;
+}
+
+.valid_thru {
+  position: absolute;
+  font-weight: bold;
+  top: 6.5rem;
+  font-size: .8em;
+  left: 1.4em;
+}
+
+.date_8264 {
+  position: absolute;
+  font-weight: bold;
+  font-size: 0.7em;
+  top: 9.5em;
+  left: 5em;
+}
+
+.name {
+  position: absolute;
+  font-weight: bold;
+  font-size: 0.9em;
+  top: 8.6em;
+  left: 1.2em;
+}
+
+.strip {
+  position: absolute;
+  background-color: black;
+  width: 15em;
+  height: 1.5em;
+  top: 2.4em;
+  background: repeating-linear-gradient(
+    45deg,
+    #303030,
+    #303030 10px,
+    #202020 10px,
+    #202020 20px
+  );
+}
+
+.mstrip {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  width: 8em;
+  height: 1.4em;
+  top: 5em;
+  left: .8em;
+  border-radius: 2.5px;
+}
+
+.sstrip {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  width: 4.1em;
+  height: 1.4em;
+  top: 5em;
+  left: 10em;
+  border-radius: 2.5px;
+}
+
+.code {
+  font-weight: bold;
+  text-align: center;
+  margin: .2em;
+  color: black;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+}
+
+.flip-card-front {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+  background-color: #171717;
+}
+
+.flip-card-back {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+  background-color: #171717;
+  transform: rotateY(180deg);
+}
+
+/* tarjetas2 */
+
+.tarjetas {
+  position: relative;
+}
+
+.tarjeta {
+  z-index: 1;
+  position: absolute;
+  width: 254px;
+  height: 190px;
+  border-radius: 10px;
+  transition: all .5s ease-out;
+  overflow: hidden;
+  transform: translateX(0px) translateY(0px) perspective(905px) rotateX(0deg) rotateY(0deg) rotateZ(-8deg);
+}
+
+.tarjeta.one {
+  top: -120px;
+  left: -150px;
+  background: linear-gradient(180deg, #FF0055 0%, #000066 100%);
+}
+
+.tarjeta.two {
+  top: -95px;
+  left: -125px;
+  background: linear-gradient(180deg, #fa00ff 0%, #01f998 99%);
+}
+
+
+.tarjeta:hover {
+  z-index: 4;
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) !important;
+  transition: all .5s ease-out;
+}
+
+.cardDetails {
+  width: 55%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  background: rgba(0,0,0,0.8);
+  transition: .5s;
+  transform-origin: left;
+  transform: perspective(2000px) rotateY(-90deg);
+}
+
+.tarjeta:hover .cardDetails {
+  transform: perspective(2000px) rotateY(0deg);
+}
+
+.cardDetailsHaeder {
+  font-weight: 600;
+  color: #edb899;
+}
+
+.cardDetailsButton {
+  padding: 3px 6px;
+  border-radius: 25px;
+  background-color: #edb899;
+  color: #000;
+  font-weight: 600;
 }
