@@ -11,12 +11,16 @@ header{
 .imagen-logo{
     width: 30rem!important;
 }
-.logo-titulo{
-    
-}
+
 main{
     min-height: 80vh;
+    background-color: rgba(226, 215, 202, 0.877); 
+    /* background-image: url(../css/imagenes/5039684.jpg); */
+    object-fit: contain;
 
+}
+.mainTarjeta{
+  min-height: 50vh !important;
 }
 ul{
     margin: 0!important;
@@ -45,7 +49,20 @@ background-color: rgb(85, 80, 80) !important;
 .SILVER{
 background-color: rgb(143, 138, 138) !important;
 }
-/* ----------- nav ---------- */
+.titulos{
+  font-family: 'Alata', sans-serif;
+  text-decoration: underline;
+  
+}
+.logo-red-social{
+  width: 5rem;
+}
+.link-footer{
+  text-decoration: none;
+  color: #000;
+
+}
+/* ----------- navegacion ---------- */
 
 button {
   background: #fff5;
@@ -90,6 +107,86 @@ button:hover::before {
   opacity: 1;
 }
 
+/*---------- Accounts ----------*/
+.accounts{
+  flex-wrap: wrap;
+  flex-direction: row !important;
+}
+.container-account {
+  width: 28rem;
+  height: 20rem;
+  background: transparent;
+  position: relative; 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.438);
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.card-account {
+  cursor: default;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #212121;
+  background-color: rgba(255, 255, 255, 0.582);
+  border: 1px solid rgba(255, 255, 255, 0.222);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+  transition: all ease .3s;
+}
+
+.container-account::after,
+.container-account::before {
+  width: 100px;
+  height: 100px;
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  transition: .5s linear;
+}
+
+.container-account::after {
+  top: -20px;
+  left: -20px;
+  background-color: rgba(125, 214, 66, 0.664);
+  animation: animFirst 5s linear infinite;
+}
+
+.container-account::before {
+  background-color: #0097b2b0;
+  top: 70%;
+  left: 70%;
+  animation: animSecond 5s linear infinite;
+  animation-delay: 3s;
+}
+
+.container-account:hover {
+  box-shadow: 0px 0px 25px rgba(0, 77, 32, 0.473)
+}
+
+.container-account:hover::after {
+  left: 80px;
+  transform: scale(1.2);
+}
+
+.container-account:hover::before {
+  left: -10px;
+  transform: scale(1.2);
+}
+
+/*---------- transacciones ----------*/
+.img-logo-back{
+  width: 5rem;
+}
 /*---------- tarjetas ----------*/
 
 .flip-card {
@@ -298,7 +395,26 @@ button:hover::before {
 .cardDetailsButton {
   padding: 3px 6px;
   border-radius: 25px;
-  background-color: #edb899;
+  background-color:#edb899 ;
   color: #000;
   font-weight: 600;
+}
+
+/*---------- form de login ----------*/
+.login-form{
+   background-color:#f8f6f4; 
+  
+
+} 
+.fondo-login{
+  background-color: #0097b2;
+  /* background-image: url(../css/imagenes/5039684.jpg); */
+}
+.gradient-custom-2{
+background: linear-gradient(to right, #0097b2, #1EB663 ) ;
+ 
+}
+#boton-crear{
+  text-decoration: none;
+  color: white;
 }

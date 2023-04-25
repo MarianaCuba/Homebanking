@@ -23,8 +23,7 @@ created(){
         .then(response => {
 
             this.account = response.data;
-            console.log(response);
-            // console.log(this.account);
+            console.log(response.data);
             this.transactions = this.account.transaction
              console.log(this.transactions);
             this.transactions.sort((transaction1,transaction2)=> {

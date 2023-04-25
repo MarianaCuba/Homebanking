@@ -2,10 +2,12 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.Models.*;
 import com.mindhub.homebanking.Repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import java.time.LocalDate;
@@ -23,19 +25,24 @@ public class HomebankingApplication {
 
 
 	LocalDateTime now = LocalDateTime.now();
+	double cuentaRamdon = Math.random();
+	String numeroCuenta = "vin" + Double.toString(cuentaRamdon);
 
-
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 
 	@Bean
 	public CommandLineRunner initData(ClientRepository repository , AccountRepository accountRepository , TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository, CardRepository cardRepository) {
 		return (args) -> {
 			// save a couple of customers
-			Client client1 = new Client("Melba", "Morel","melba@mindhub.com");
-			Client client2 = new Client("Mariana","Cuba","mari@gmail.com");
+			Client client1 = new Client("Melba", "Morel","melba@mindhub.com", passwordEncoder.encode("asd234"));
+			Client client2 = new Client("Mariana","Cuba","mari@gmail.com",passwordEncoder.encode("asd124"));
 
-			Account account1= new Account("vin001", now,5000);
-			Account account2= new Account("vin002",now.plusDays(1),7500);
+			Account account1= new Account(numeroCuenta, now,5000);
+			Account account2= new Account(numeroCuenta,now.plusDays(1),7500);
+
+			Account accountResgister = new Account(numeroCuenta, now, 0);
 
 			Transaction transaction1 = new Transaction(100.55, TransactionType.CREDIT,"varios",now);
 			Transaction transaction2 = new Transaction(1500.98, TransactionType.DEBIT, "otros",now);
@@ -51,8 +58,8 @@ public class HomebankingApplication {
 			loanRepository.save(loan2);
 			loanRepository.save(loan3);
 
-			ClientLoan clientLoan1 = new ClientLoan(400000, 60, "mortgage");
-			ClientLoan clientLoan2 = new ClientLoan(50000,12,"person");
+			ClientLoan clientLoan1 = new ClientLoan(400000, 60);
+			ClientLoan clientLoan2 = new ClientLoan(50000,12);
 
 			Card card1 = new Card("Melba Morel", CardType.CREDIT, CardColor.GOLD, "3609-2212-0521-1007",642, LocalDate.now(), LocalDate.now().plusYears(5));
 			Card card2 = new Card("Melba Morel", CardType.DEBIT,CardColor.TITANIUM,"4789-5678-9231-2204", 569, LocalDate.now(), LocalDate.now().plusYears(5));
@@ -90,10 +97,6 @@ public class HomebankingApplication {
 			client1.addClientLoan(clientLoan2);
 			loan2.addClientLoan(clientLoan2);
 			clientLoanRepository.save(clientLoan2);
-
-
-
-
 
 
 		};

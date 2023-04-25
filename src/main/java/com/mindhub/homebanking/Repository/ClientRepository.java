@@ -7,6 +7,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
     @RepositoryRestResource
     public interface ClientRepository extends JpaRepository<Client, Long> {
-//    List<Client> findByFirstName(String firstName);
+    Client findByEmail(String email);
     }
 

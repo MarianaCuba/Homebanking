@@ -5,43 +5,71 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/styleWeb.css">
     <link rel="shortcut icon" href="../css/imagenes/logo-favicon.png" type="image/x-icon">
     <title>Account</title>
 </head>
 <body>
-    <header>
+    <div id="app">
+    <header >
         <div class="col pe-0">
             <nav class="navbar navbar-expand-lg bg-header navbar-dark">
-                <div class="d-flex align-items-center gap-3 ">
-                    <img class="imagen-logo ms-auto me-auto "  src="../css/imagenes/logo-Home-removebg-preview.png" alt="logo">
+                <!-- <div class="d-flex align-items-center gap-3"> -->
+                    <img class="imagen-logo ms-auto me-auto" src="../css/imagenes/logo-Home-removebg-preview.png" alt="logo">
+                 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-lg-none">
+                      
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
                             <li class="nav-item">
-                                <a class="nav-link active fs-4 active" aria-current="page" href="#">Inicio</a>
+                              <button>
+                                <a class="span" href="../html/accounts.html">Accounts</a>
+                            </button>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-4" href="#">Account</a>
+                              <button>
+                                <a class="span " href="../html/cards.html">Cards</a>
+                            </button>
+                            </li>
+                            <li class="nav-item">
+                                <button>
+                                    <a @click.prevent="logout" class="span " href="">Salir</a>
+                                </button>>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fs-4" href="#"></a>
                             </li>
                         </ul>
                     </div>
-                </div>
+                <!-- </div> -->
             </nav>
-        </div>
-    </header>
-    <main id="app">
-
     
+        </div>
+     
+    </header>
+    <main >
+        <h2 class="text-center p-3 fs-1"> Your Accounts</h2>
+        <div class="accounts d-flex justify-content-evenly ">
+            <template v-for="dato of datos.accounts" >
+                <div class="container-account">
+                    <div class="card-account gap-3"> 
+                        <h3>{{dato.number}}</h3>
+                        <h5>Balance : ${{dato.balance}}</h5>
+                        <h5>Created : {{dato.creationDate.slice(0,10)}} {{dato.creationDate.slice(11,16)}}</h5>  
+                        <h5><a class="btn " :href="'../html/account.html?id='+dato.id"> Transaction</a></h5> 
+                    </div>
 
+                </div>
+            </template>
+        </div>
         <!-- ---------------tabla------------------- -->
         <div class="d-flex gap-5 flex-column align-items-center ">
-            <h2 class="text-center"> Accounts</h2>
-            <table class="table table-striped container m-0 m-auto">
+            
+            <!-- <table class="table table-striped container m-0 m-auto">
                 <tr>
                     <td colspan="2" class="titulo-tabla text-center text-white">FirstName</td>
                     <td colspan="2" class="titulo-tabla text-center text-white">LastName</td>
@@ -57,22 +85,22 @@
                     <td class="text-center"> {{dato.balance}}</td>
                     <td class="text-center"> {{dato.creationDate.slice(0,10)}} {{dato.creationDate.slice(11,16)}}</td>
                     
-                    <td class="text-center"><a :href="'./account.html?id='+dato.id"> More </a></td>
+                    <td class="text-center"><a :href="./account.html> More </a></td>
                   </tr>
-            </table>
+            </table> -->
 
-            <div v-if=" loans.lenght != 0 ">
-                <h2 class="text-center">Loans</h2>
+            <div class="container" v-if=" loans.lenght != 0 ">
+                <h2 class="text-center mt-5 mb-4 fs-1">Loans</h2>
                 <table class="table table-striped container m-0 m-auto">
                     <tr>
-                        <td  class="titulo-tabla text-center text-white">Name</td>
-                        <td  class="titulo-tabla text-center text-white">Amount</td>
-                        <td class="titulo-tabla text-center text-white">Payments</td>
+                        <td colspan="2" class="titulo-tabla text-center text-white fs-4">Name</td>
+                        <td colspan="2" class="titulo-tabla text-center text-white fs-4">Amount</td>
+                        <td colspan="2" class="titulo-tabla text-center text-white fs-4">Payments</td>
                       </tr>
                       <tr v-for="loan of loans">
-                        <td  class="text-center">{{loan.name}}</td>
-                        <td  class="text-center">{{loan.amount}}</td>
-                        <td  class="text-center">{{loan.payments}}</td>
+                        <td colspan="2" class="text-center fs-5">{{loan.name}}</td>
+                        <td colspan="2" class="text-center fs-5">${{loan.amount}}</td>
+                        <td colspan="2" class="text-center fs-5">{{loan.payments}}</td>
      
                       </tr>
                 </table>
@@ -89,8 +117,11 @@
     </main>
     <footer>
         <h4 class="text-center text-white p-3"> Cohort 44</h4>
+        <!-- <a href="">Mariana Cuba </a> -->
     </footer>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="../Js/accounts.js"></script>

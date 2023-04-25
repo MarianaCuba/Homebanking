@@ -14,7 +14,7 @@ createApp({
     },
     methods: {
         loadData(){
-            axios.get('http://localhost:8080/api/clients/1')
+            axios.get('http://localhost:8080/api/clients/current')
             .then(response => {
                 this.datos = response.data;
                 this.cards = this.datos.cards
@@ -27,6 +27,29 @@ createApp({
                 console.log(this.datos);
               
             } )
+        },
+        logout(){
+            Swal.fire({
+                title: 'Are you sure that you want to log out',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Sure',
+                showLoaderOnConfirm: true,
+                preConfirm: (login) => {
+                    return axios.post('/api/logout')
+                        .then(response => {
+                            window.location.href="/web/html/index.html"
+                        })
+                        .catch(error => {
+                            Swal.showValidationMessage(
+                                "Request failed: ${error}"
+                            )
+                        })
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            })
         }
     
     

@@ -7,9 +7,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/styleWeb.css">
     <link rel="shortcut icon" href="../css/imagenes/logo-favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
     <title>Transaction</title>
 </head>
 <body>
+    <div id="app">
     <header >
         <div class="col pe-0">
             <nav class="navbar navbar-expand-lg bg-header navbar-dark">
@@ -35,7 +39,9 @@
                             </button>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-4" href="#"></a>
+                                <button>
+                                    <a @click="logout" class="span " href="../html/index.html">Exit</a>
+                                </button>>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link fs-4" href="#"></a>
@@ -48,33 +54,46 @@
         </div>
      
     </header>
-    <main id="app">
-        <h2 class="text-center">
+    <main >
+        <h2 class=" titulos text-center p-3 fs-1">
             Transactions
         </h2>
-        <td><a href="./accounts.html">back</a></td>
-        <table class="table container" >
-            <thead>
-              <tr class="titulo-tabla">
-                <th scope="col">Date</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Type</th>
-                <th scope="col">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr  v-for="transaction of transactions">
-                <td > {{transaction.date.slice(0,10)}} {{transaction.date.slice(11,16)}}</td>
-                <td v-bind:class="transaction.type">{{transaction.amount}}</td>
-                <td v-bind:class="transaction.type"> {{transaction.type}}</td>
-                <td>{{transaction.description}}</td>
-              </tr>
-          </table>
+        <a href="./accounts.html"><img class="img-logo-back" src="../css/imagenes/back--v1.png"></a></img>
+   <div class="d-flex container gap-5">
+    <div class="container-account">
+        <div class="card-account gap-3"> 
+            <h3>account : {{account.number}}</h3>
+            <h5>Balance : $ {{account.balance}}</h5>
+            <h5>Created : {{account.creationDate.slice(0,10)}} {{account.creationDate.slice(11,16)}}</h5>  
+            <!-- <h5><a class="btn " :href="'../html/account.html?id='+dato.id"> Transaction</a></h5>  -->
+        </div>
+    </div>
+<table class=" table table-striped m-0 m-auto" >
+    
+      <tr class="titulo-tabla">
+        <td >Date</td>
+        <td >Amount</td>
+        <td >Type</td>
+        <td >Description</td>
+      </tr>
+
+      <tr  v-for="transaction of transactions">
+        <td > {{transaction.date.slice(0,10)}} {{transaction.date.slice(11,16)}}</td>
+        <td v-bind:class="transaction.type">{{transaction.amount}}</td>
+        <td v-bind:class="transaction.type"> {{transaction.type}}</td>
+        <td>{{transaction.description}}</td>
+      </tr>
+  </table>
+   </div>
 
     </main>
     <footer>
-
+        <h3 class="d-flex align-items-center justify-content-center"><a class="link-footer" href="https://www.linkedin.com/in/mariana-cuba-72a901258/">Mariana Cuba </a></h3>
+       <div class="d-flex justify-content-end"> 
+        <a href=""><img class="logo-red-social" src="../css/imagenes/symbole-github-gris.png" alt=""></a>
+        <a href=""><img class="logo-red-social" src="" alt=""></a></div>
     </footer>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
