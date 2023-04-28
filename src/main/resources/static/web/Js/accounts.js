@@ -52,6 +52,33 @@ created(){
             },
             allowOutsideClick: () => !Swal.isLoading()
         })
+    },
+    creationAccount(){
+        Swal.fire({
+            title: 'Are you sure that you want to log out',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Sure',
+            showLoaderOnConfirm: true,
+            preConfirm: (login) => {
+                return axios.post('/api/clients/current/accounts')
+                    .then(response => {
+                        window.location.href="/web/html/accounts.html"
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: error.response.data,
+                          })
+                    })
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        })
+
     }
 
 

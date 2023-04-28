@@ -49,10 +49,22 @@ public class ClientController {
 
                 @RequestParam String email, @RequestParam String password) {
 
-            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-
-                return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+            if (firstName.isBlank()) {
+                return new ResponseEntity<>("Missing firstname", HttpStatus.FORBIDDEN);
             }
+            if(lastName.isBlank()){
+                return new ResponseEntity<>("Missing lastname", HttpStatus.FORBIDDEN);
+            }
+            if (email.isBlank()){
+                return new ResponseEntity<>("Missing email", HttpStatus.FORBIDDEN);
+            }
+            if (email.contains("@")){
+                return new ResponseEntity<>("it is not an email", HttpStatus.FORBIDDEN);
+            }
+            if (password.isBlank()){
+                return new ResponseEntity<>("Missing password", HttpStatus.FORBIDDEN);
+            }
+
             if (clientRepository.findByEmail(email) != null) {
 
                 return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
@@ -60,7 +72,7 @@ public class ClientController {
             }
             String accountAleatory;
             do{
-                accountAleatory = Account.generaRamdon();
+                accountAleatory = Account.generaRandom();
             }while(accountRepository.findByNumber(accountAleatory) != null);
 
 

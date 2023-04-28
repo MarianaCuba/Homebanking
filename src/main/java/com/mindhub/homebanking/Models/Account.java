@@ -80,9 +80,9 @@ public class Account {
         transaction.setAccount(this);
         transactions.add(transaction);
     }
-    public static String generaRamdon(){
-        int cuentaRamdon = (int) (Math.random()*999999+100000);
-        String numberAccount = "vin " + Integer.toString(cuentaRamdon);
+    public static String generaRandom(){
+        int cuentaRandom = (int) (Math.random()*999999+100000);
+        String numberAccount = "vin " + Integer.toString(cuentaRandom);
         return numberAccount;
     }
 

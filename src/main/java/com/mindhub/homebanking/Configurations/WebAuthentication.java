@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
     @Autowired
 
-    ClientRepository clientRepository;
+   private ClientRepository clientRepository;
 
 
 
@@ -30,7 +30,10 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
             Client client = clientRepository.findByEmail(inputName);
 
             if (client != null) {
-
+                if (client.getEmail().contains("mari04")){
+                    return new User(client.getEmail(), client.getPassword(),
+                            AuthorityUtils.createAuthorityList("ADMIN"));
+                }
                 return new User(client.getEmail(), client.getPassword(),
 
                         AuthorityUtils.createAuthorityList("CLIENT"));
