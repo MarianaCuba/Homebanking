@@ -27,22 +27,22 @@
                       
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
                             <li class="nav-item">
-                              <button>
+                              <button class="button-nav">
                                 <a class="span" href="../html/accounts.html">Accounts</a>
                             </button>
                             </li>
                             <li class="nav-item">
-                              <button>
+                              <button class="button-nav">
                                 <a class="span " href="../html/cards.html">Cards</a>
                             </button>
                             </li>
                             <li class="nav-item">
-                                <button>
-                                  <a class="span " href="">Transfers</a>
+                                <button class="button-nav">
+                                  <a class="span " href="../html/transfers.html">Transfers</a>
                               </button>
                               </li>
                             <li class="nav-item">
-                                <button>
+                                <button class="button-nav">
                                     <a @click.prevent="logout" class="span " href="">Salir</a>
                                 </button>>
                             </li>
@@ -58,8 +58,8 @@
      
     </header>
     <main >
-        <button>
-            <h5 @click="creationAccount" href="">New Account</h5>
+        <button >
+            <h5 class="p-1" @click="creationAccount" href="">New Account</h5>
         </button>
         <h2 class="text-center p-3 fs-1"> Your Accounts</h2>
         <div class="accounts d-flex justify-content-evenly ">

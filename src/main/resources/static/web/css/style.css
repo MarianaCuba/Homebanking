@@ -100,3 +100,41 @@ ul{
   .card .content .btn-link:hover {
     border-bottom: 1px solid #1d8122;
   }
+
+
+
+
+
+/* Forms */
+.carrouselTransfer button{
+    width: 9.5rem;
+    background-color: rgba(176, 113, 30, 0.655);
+}
+
+.carrouselTransfer button:hover{
+    background-color: rgba(179, 130, 65, 0.655);
+}
+
+.carrouselTransfer .buttons button{
+    height: 5rem;
+    border: 1px solid black;
+    border-radius: 2rem;
+}
+
+.carrouselTransfer .buttons button img{
+    width: 3rem;
+}
+.formTransfer{
+  width: 35rem;
+}
+form{
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.482);
+    backdrop-filter: blur( 1.5px );
+    -webkit-backdrop-filter: blur( 1.5px );
+}
+
+
+
+
+

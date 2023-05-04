@@ -29,22 +29,22 @@
                       
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
                             <li class="nav-item">
-                              <button>
+                              <button class="button-nav">
                                 <a class="span" href="../html/accounts.html">Accounts</a>
                             </button>
                             </li>
                             <li class="nav-item">
-                              <button>
+                              <button class="button-nav">
                                 <a class="span " href="../html/cards.html">Cards</a>
                             </button>
                             </li>
                             <li class="nav-item">
-                                <button>
-                                  <a class="span " href="">Transfers</a>
+                                <button class="button-nav">
+                                  <a class="span " href="../html/transfers.html">Transfers</a>
                               </button>
                               </li>
                             <li class="nav-item">
-                                <button>
+                                <button class="button-nav">
                                     <a @click="logout" class="span " href="">Exit</a>
                                 </button>>
                             </li>
@@ -82,10 +82,10 @@
         <td >Description</td>
       </tr>
 
-      <tr  v-for="transaction of transactions">
+      <tr v-bind:class="transaction.type" v-for="transaction of transactions">
         <td > {{transaction.date.slice(0,10)}} {{transaction.date.slice(11,16)}}</td>
-        <td v-bind:class="transaction.type">{{transaction.amount}}</td>
-        <td v-bind:class="transaction.type"> {{transaction.type}}</td>
+        <td >{{transaction.amount}}</td>
+        <td > {{transaction.type}}</td>
         <td>{{transaction.description}}</td>
       </tr>
   </table>

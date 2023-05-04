@@ -64,7 +64,7 @@ background-color: rgb(143, 138, 138) !important;
 }
 /* ----------- navegacion ---------- */
 
-button {
+.button-nav {
   background: #fff5;
   border: none;
   padding: 10px 20px;
@@ -84,7 +84,7 @@ button {
   transform: skew(21deg);
 }
 
-button::before {
+.button-nav::before {
   content: '';
   position: absolute;
   top: 0;
@@ -97,11 +97,11 @@ button::before {
   transition: all 0.5s;
 }
 
-button:hover a{
+.button-nav:hover a{
   color: #fff;
 }
 
-button:hover::before {
+.button-nav:hover::before {
   left: 0;
   right: 0;
   opacity: 1;
@@ -436,4 +436,33 @@ background: linear-gradient(to right, #0097b2, #1EB663 ) ;
   background-position-x: 30%;
   /* opacity: 70%; */
 
+}
+
+/*---------- Transfer ----------*/
+.carrouselTransfer button{
+  width: 9.5rem;
+  background-color: rgba(47, 211, 121, 0.678);
+}
+
+.carrouselTransfer button:hover{
+  background-color: rgba(47, 211, 121, 0.678);
+}
+
+.carrouselTransfer .buttons button{
+  height: 5rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+}
+
+.carrouselTransfer .buttons button img{
+  width: 3rem;
+}
+.formTransfer{
+width: 35rem;
+}
+#transfer-form{
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.482);
+  backdrop-filter: blur( 1.5px );
+  -webkit-backdrop-filter: blur( 1.5px );
 }

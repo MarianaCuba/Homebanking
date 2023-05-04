@@ -39,8 +39,8 @@ public class HomebankingApplication {
 			Client client1 = new Client("Melba", "Morel","melba@mindhub.com", passwordEncoder.encode("asd234"));
 			Client client2 = new Client("Mariana","Cuba","mari04@gmail.com",passwordEncoder.encode("asd124"));
 
-			Account account1= new Account("vin0001", now,5000);
-			Account account2= new Account("vin0002",now.plusDays(1),7500);
+			Account account1= new Account("VIN0001", now,5000);
+			Account account2= new Account("VIN0002",now.plusDays(1),7500);
 
 			Account accountResgister = new Account(numeroCuenta, now, 0);
 

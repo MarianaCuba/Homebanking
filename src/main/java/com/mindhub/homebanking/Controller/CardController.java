@@ -20,8 +20,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import static com.mindhub.homebanking.Models.Card.generaRandomCardNumber;
+import static com.mindhub.homebanking.Models.Card.randomCardCvv;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 public class CardController {
@@ -52,7 +55,7 @@ public class CardController {
               if (color == null) {
             return new ResponseEntity<>("Missing color", HttpStatus.FORBIDDEN);
         }
-            if (cards.size() == 3){
+            if (cards.size() >= 3){
                 return new ResponseEntity<>("You can't have more than 3 cards", HttpStatus.FORBIDDEN);
             }
             if (cards.stream().anyMatch(card -> card.getColor() == color)) {
@@ -61,15 +64,11 @@ public class CardController {
 
 
         String randomCard;
-        int randomCvv;
+        int randomCvv = randomCardCvv();
 
         do {
-            randomCard = Card.generaRandomCardNumber();
+            randomCard = generaRandomCardNumber();
         } while (cardRepository.findBynumber(randomCard) != null);
-
-        do {
-            randomCvv = Card.randomCardCvv();
-        }while(cardRepository.findByCvv(randomCvv) != null);
 
 
 
@@ -78,7 +77,7 @@ public class CardController {
         cardRepository.save(newCard);
 
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(CREATED);
     }
 
 

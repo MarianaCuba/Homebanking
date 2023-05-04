@@ -4,10 +4,152 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/styleWeb.css">
+    <link rel="shortcut icon" href="../css/imagenes/c4fe889ee4828391ca985f831f8c0b80-mano-sosteniendo-la-bolsa-de-dinero.png" type="image/x-icon">
+ 
+    <title>Transfers</title>
 </head>
 <body>
+    <div id="app">
+    <header >
+        <div class="col pe-0">
+            <nav class="navbar navbar-expand-lg bg-header navbar-dark">
+                <!-- <div class="d-flex align-items-center gap-3"> -->
+                    <img class="imagen-logo ms-auto me-auto" src="../css/imagenes/c4fe889ee4828391ca985f831f8c0b80-mano-sosteniendo-la-bolsa-de-dinero.png" alt="logo">
+                    <h1> Mindhub | Brother Bank </h1>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                            <li class="nav-item">
+                              <button class="button-nav">
+                                <a class="span" href="../html/accounts.html">Accounts</a>
+                            </button>
+                            </li>
+                            <li class="nav-item">
+                              <button class="button-nav">
+                                <a class="span " href="../html/cards.html">Cards</a>
+                            </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="button-nav">
+                                  <a class="span " href="../html/transfers.html">Transfers</a>
+                              </button>
+                              </li>
+                            <li class="nav-item">
+                                <button class="button-nav">
+                                    <a @click.prevent="logout" class="span " href="">Salir</a>
+                                </button>>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fs-4" href="#"></a>
+                            </li>
+                        </ul>
+                    </div>
+                <!-- </div> -->
+            </nav>
     
-</body>
-</html>
+        </div>
+     
+    </header>
+    <main>
+        <!-- /*                 FORM                 */ -->
+        <div class="carrouselTransfer d-flex justify-content-center pt-5 pb-5">
+            <div class="buttons d-flex flex-column justify-content-center  gap-2">
+                <button class="d-flex flex-column justify-content-center align-items-center" type="button" data-bs-target="#carousel2" data-bs-slide-to="0" aria-label="Slide 1">
+                    <img src="../css/imagenes/coin_money_transaction_economy_dollar_business_finance_rotate_cycle_icon_230331.png" alt="">
+                    <span>To my accounts</span>
+                </button>
+                <button class="d-flex flex-column justify-content-center align-items-center" type="button" data-bs-target="#carousel2" data-bs-slide-to="1" aria-label="Slide 2">
+                    <img src="../css/imagenes/1489436634-dollaraccountcurrencymoney_81876.png" alt="">
+                    <span>To other accounts</span>
+                </button>
+            </div>
+            <div id="carousel2" class="carousel slide mt-3">
+                <div class="carousel-inner">
+                    <div class="carousel-item active item-1">
+                        <div class=" formTransfer d-flex justify-content-center align-items-center">
+                            <form id="transfer-form" class="p-3 rounded" @submit.prevent="createTransactions">
+                                <h2 class="text-center">Transfer to your account</h2>
+                                <div class="mb-3">
+                                    <label for="accountTransfer" class="form-label">Your Account</label>
+                                    <select class="form-select mb-3" aria-label="Default select example" v-model="account" required>
+                                        <option selected class="fs-6" value="">Select menu</option>
+                                        <template v-for="account of data.accounts">
+                                            <option :value="account.number" class="fs-6">{{account.number}}</option>
+                                        </template>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="accountTransfer" class="form-label">Account*</label>
+                                    <select class="form-select mb-3" aria-label="Default select example" v-model="destinateAccount" required>
+                                        <option selected class="fs-6" value="">Select menu</option>
+                                        <template v-for="account of data.accounts">
+                                            <option :value="account.number" class="fs-6">{{account.number}}</option>
+                                        </template>
+                                    </select>
+                                    
+                                </div>
+                                <div class="mb-3">
+                                    <label for="amount" class="form-label">Amount</label>
+                                    <input type="number" class="form-control" id="amount" v-model="amount" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" rows="3" v-model="description"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Transfer</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!----------------------------------------- Form 2 ------------------------------------------------------>
+                    <div class="carousel-item item-2">
+                        <div class="formTransfer d-flex justify-content-center align-items-center">
+                            <form id="transfer-form" class="p-3 rounded" @submit.prevent="createTransactions">
+                                <h2 class="text-center">To other accounts</h2>
+                                <div class="mb-3">
+                                    <label for="accountTransfer" class="form-label">Your Account</label>
+                                    <select class="form-select mb-3" aria-label="Default select example" v-model="account" required>
+                                        <option selected class="fs-6" value="">Select menu</option>
+                                        <template v-for="account of data.accounts">
+                                            <option :value="account.number" class="fs-6">{{account.number}}</option>
+                                        </template>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="account2" class="form-label">Account</label>
+                                    <input type="text" class="form-control" id="account2" placeholder="VIN-000" v-model="destinateAccount" required>
+                                    <div id="emailHelp" class="form-text">The account that you want to transfer the money.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="amount" class="form-label">Amount</label>
+                                    <input type="number" class="form-control" id="amount" v-model="amount" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" rows="3" v-model="description"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Transfer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer class="bg-dark d-flex justify-content-evenly align-items-center pt-3 pb-3">
+    </footer>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+      <script src="../Js/transfers.js"></script>
+        </body>
+        </html>
