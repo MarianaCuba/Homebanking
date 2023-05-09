@@ -65,7 +65,7 @@ createApp({
                                 timer: 2000,
                             })
                             .then( () => window.location.href="/web/html/accounts.html")
-                            .catch(error => console.log(error)))
+
                         .catch(error => {
                             Swal.fire({
                                 icon: 'error',
@@ -73,7 +73,7 @@ createApp({
                                 confirmButtonColor: "rgb(16, 204, 88)",
                             })
                         })
-                },
+            )},
                 allowOutsideClick: () => !Swal.isLoading()
             })
             .catch(error => {console.log(error)})

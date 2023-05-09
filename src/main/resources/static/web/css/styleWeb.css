@@ -6,18 +6,22 @@
 
 header{
     min-height: 10vh;
-    background: linear-gradient(to right, #0097b2, #1EB663 );
+    background-color: #660074e8;
 }
 .imagen-logo{
-    width: 10rem!important;
+    width: 8rem !important;
 }
 
 main{
     min-height: 80vh;
     background-color: rgba(226, 215, 202, 0.877); 
+    background-image: url(../css/imagenes/5403537.jpg);
     /* background-image: url(../css/imagenes/5039684.jpg); */
+    background-position-x: 10%;
     object-fit: contain;
-
+}
+#text-color{
+  color:  #dc1bee;
 }
 .mainTarjeta{
   min-height: 50vh !important;
@@ -26,12 +30,12 @@ ul{
     margin: 0!important;
 }
 .titulo-tabla{
-    background-color: #1eb662bb!important;
+    background-color: #f02fd6bb!important;
  }
 
  footer{
     min-height: 10vh;
-    background: linear-gradient(to right, #0097b2, #1EB663 );
+    background-color: #660074e8;
  }
 
 .DEBIT{
@@ -91,7 +95,7 @@ background-color: rgb(143, 138, 138) !important;
   bottom: 0;
   right: 100%;
   left: 0;
-  background: #0097b2;
+  background: #520434;
   opacity: 0;
   z-index: -1;
   transition: all 0.5s;
@@ -108,6 +112,9 @@ background-color: rgb(143, 138, 138) !important;
 }
 
 /*---------- Accounts ----------*/
+.imagenBotonMas{
+  width: 2rem;
+}
 .accounts{
   flex-wrap: wrap;
   flex-direction: row !important;
@@ -135,8 +142,8 @@ background-color: rgb(143, 138, 138) !important;
   font-size: 34px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #212121;
-  background-color: rgba(255, 255, 255, 0.582);
+  color: #cb96ee;
+  background-color: rgba(255, 255, 255, 0.13);
   border: 1px solid rgba(255, 255, 255, 0.222);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
@@ -183,7 +190,7 @@ background-color: rgb(143, 138, 138) !important;
   transform: scale(1.2);
 }
 .table{
-  box-shadow: 2px 3px 3px 3px rgb(147, 199, 123);
+  box-shadow: 2px 3px 3px 3px rgb(209, 79, 198);
 }
 /*---------- transacciones ----------*/
 .img-logo-back{
@@ -335,93 +342,29 @@ background-color: rgb(143, 138, 138) !important;
   transform: rotateY(180deg);
 }
 
-/* tarjetas2 */
 
-.tarjetas {
-  position: relative;
-}
-
-.tarjeta {
-  z-index: 1;
-  position: absolute;
-  width: 254px;
-  height: 190px;
-  border-radius: 10px;
-  transition: all .5s ease-out;
-  overflow: hidden;
-  transform: translateX(0px) translateY(0px) perspective(905px) rotateX(0deg) rotateY(0deg) rotateZ(-8deg);
-}
-
-.tarjeta.one {
-  top: -120px;
-  left: -150px;
-  background: linear-gradient(180deg, #FF0055 0%, #000066 100%);
-}
-
-.tarjeta.two {
-  top: -95px;
-  left: -125px;
-  background: linear-gradient(180deg, #fa00ff 0%, #01f998 99%);
-}
-
-
-.tarjeta:hover {
-  z-index: 4;
-  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) !important;
-  transition: all .5s ease-out;
-}
-
-.cardDetails {
-  width: 55%;
-  height: 100%;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-  background: rgba(0,0,0,0.8);
-  transition: .5s;
-  transform-origin: left;
-  transform: perspective(2000px) rotateY(-90deg);
-}
-
-.tarjeta:hover .cardDetails {
-  transform: perspective(2000px) rotateY(0deg);
-}
-
-.cardDetailsHaeder {
-  font-weight: 600;
-  color: #edb899;
-}
-
-.cardDetailsButton {
-  padding: 3px 6px;
-  border-radius: 25px;
-  background-color:#edb899 ;
-  color: #000;
-  font-weight: 600;
-}
 
 /*---------- form de login ----------*/
 .login-form{
-   background-color:#f8f6f4; 
+   
+   background-image: url(../css/imagenes/2766232.jpg);
   
 
 } 
 .fondo-login{
-  background-color: #4e858fe3;
+  background-color: #b658b6bd;
   
  
   /* background-image: url(../css/imagenes/5039684.jpg); */
 }
 .fondo-login-register{
-  background-color: #4e858fe3;
+  background: linear-gradient(to right, #8505cf, #e21b96 ) ;
   opacity: 100%;
   border-radius: 30px;
   /* background-image: url(../css/imagenes/5039684.jpg); */
 }
 .gradient-custom-2{
-background: linear-gradient(to right, #0097b2, #1EB663 ) ;
+background: linear-gradient(to right, #8505cf, #e21b96 ) ;
  
 }
 #boton-crear{
@@ -430,7 +373,7 @@ background: linear-gradient(to right, #0097b2, #1EB663 ) ;
 }
 /*---------- register ----------*/
 #register-main{
-  background-image: url(./imagenes/disparo-angulo-edificio-alto-ciudad-cielo-azul-fondo-nueva-york.jpg);
+  background-image: url(./imagenes/2766232.jpg);
   object-fit: cover;
   background-position-y: 50%;
   background-position-x: 30%;
@@ -465,4 +408,8 @@ width: 35rem;
   background-color: rgba(255, 255, 255, 0.482);
   backdrop-filter: blur( 1.5px );
   -webkit-backdrop-filter: blur( 1.5px );
+}
+/* loans */
+.tabla-loans{
+  background-color: #cb96ee;
 }

@@ -15,9 +15,9 @@
     <header >
         <div class="col pe-0">
             <nav class="navbar navbar-expand-lg bg-header navbar-dark">
-                <!-- <div class="d-flex align-items-center gap-3"> -->
+                <div class="d-flex flex-wrap align-items-center ">
                     <img class="imagen-logo ms-auto me-auto" src="../css/imagenes/c4fe889ee4828391ca985f831f8c0b80-mano-sosteniendo-la-bolsa-de-dinero.png" alt="logo">
-                    <h1> Mindhub | Brother Bank </h1>
+                    <h1> Mindhub | Brother <span id="text-color">  Bank</span> </h1>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -51,17 +51,20 @@
                             </li>
                         </ul>
                     </div>
-                <!-- </div> -->
+                 </div> 
             </nav>
     
         </div>
      
     </header>
     <main >
-        <button >
-            <h5 class="p-1" @click="creationAccount" href="">New Account</h5>
-        </button>
-        <h2 class="text-center p-3 fs-1"> Your Accounts</h2>
+        <div class="d-flex justify-content-center p-3">  
+            <button class="bg-transparent">
+                <img class="imagenBotonMas" src="../css/imagenes/mas.png" alt="">
+                <h5 class="p-1" @click="creationAccount" href="">New Account</h5>
+            </button>
+        </div>
+        <h2 class="text-center text-white p-3 fs-1"> Your <span id="text-color">Accounts</span></h2>
         <div class="accounts d-flex justify-content-evenly ">
             <template v-for="dato of datos.accounts" >
                 <div class="container-account">
@@ -99,7 +102,7 @@
             </table> -->
 
             <div class="container" v-if=" loans.lenght != 0 ">
-                <h2 class="text-center mt-5 mb-4 fs-1">Loans</h2>
+                <h2 class="text-center mt-5 mb-2 fs-1 text-white ">Loans</h2>
                 <table class="table table-striped container m-0 m-auto mb-5">
                     <tr>
                         <td colspan="2" class="titulo-tabla text-center text-white fs-4">Name</td>
@@ -107,9 +110,9 @@
                         <td colspan="2" class="titulo-tabla text-center text-white fs-4">Payments</td>
                       </tr>
                       <tr v-for="loan of loans">
-                        <td colspan="2" class="text-center fs-5">{{loan.name}}</td>
-                        <td colspan="2" class="text-center fs-5">${{loan.amount}}</td>
-                        <td colspan="2" class="text-center fs-5">{{loan.payments}}</td>
+                        <td colspan="2" class="text-center text-white fs-5">{{loan.name}}</td>
+                        <td colspan="2" class="text-center text-white fs-5">${{loan.amount}}</td>
+                        <td colspan="2" class="text-center text-white fs-5">{{loan.payments}}</td>
      
                       </tr>
                 </table>
@@ -117,6 +120,12 @@
                <div v-else>
                     <h2> no hay nada </h2>
                </div> 
+           <div class="pb-5">
+            <button class="bg-transparent p-1">
+                <img class="imagenBotonMas" src="../css/imagenes/mas.png" alt="">
+                <a href="../html/loan-application.html"> Apply </a>
+            </button>
+           </div>
             
 
 

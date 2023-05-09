@@ -58,55 +58,40 @@
 </header>
     
     <main >
-        <section class="login-form gradient-form">
-            <div class=" container py-5 ">
-              <div class="row d-flex justify-content-center align-items-center ">
-                <div class="col-xl-10">
-                  <div class="card rounded-3 text-black">
-                    <div class="row g-0">
-                      <div class=" fondo-login col-lg-6">
-                        <div class="card-body p-md-5 mx-md-4">
-          
-              
-          
-                          <form>
-                            <p> New Card</p>
-                            <p>Type of card</p>
-                            <div class="form-outline mb-4">
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" v-model="selectColor">
-                                    <option selected>---Select---</option>
-                                    <option value="SILVER">Silver</option>
-                                    <option value="GOLD">Gold</option>
-                                    <option value="TITANIUM">Titanium</option>
-                                  </select>
-                            </div>
-          
-                            <div class="form-outline mb-4">
-                              <select class="form-select form-select-sm" aria-label=".form-select-sm example" v-model="selectType">
-                                <option selected>---Select---</option>
-                                <option value="CREDIT">Credit</option>
-                                <option value="DEBIT">Debit</option>
-                                
-                              </select>
-                            </div>
-          
-                            <div class="text-center pt-1 mb-5 pb-1">
-                              <button class="gradient-custom-2 btn btn-primary btn-block fa-lg  mb-3" type="button" @click.prevent="creationCard">Create</button>
-                              
-                            </div>
-          
-                          
-          
-                          </form>
-          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <div class=" fondo-login col-lg-6">
+        <div class="card-body p-md-5 mx-md-4">
+          <form>
+            <p> New Card</p>
+            <p>Type of card</p>
+            <div class="form-outline mb-4">
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" v-model="selectColor">
+                    <option selected>---Select---</option>
+                    <option value="SILVER">Silver</option>
+                    <option value="GOLD">Gold</option>
+                    <option value="TITANIUM">Titanium</option>
+                  </select>
             </div>
-          </section>
+
+            <div class="form-outline mb-4">
+              <select class="form-select form-select-sm" aria-label=".form-select-sm example" v-model="selectType">
+                <option selected>---Select---</option>
+                <option value="CREDIT">Credit</option>
+                <option value="DEBIT">Debit</option>
+                
+              </select>
+            </div>
+
+            <div class="text-center pt-1 mb-5 pb-1">
+              <button class="gradient-custom-2 btn btn-primary btn-block fa-lg  mb-3" type="button" @click.prevent="creationCard">Create</button>
+              
+            </div>
+
+          
+
+          </form>
+
+        </div>
+      </div>
           
     </main>
     <footer></footer>

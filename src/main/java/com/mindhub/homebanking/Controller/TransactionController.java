@@ -77,11 +77,12 @@ public class TransactionController {
         accountInitial.addTransaction(debitTransaction);
         accountDestinate.addTransaction(creditTransaction);
 
+        accountInitial.setBalance(accountInitial.getBalance()-amount);
+        accountDestinate.setBalance(accountDestinate.getBalance()+amount);
+
         transactionRepository.save(debitTransaction);
         transactionRepository.save(creditTransaction);
 
-        accountInitial.setBalance(accountInitial.getBalance()-amount);
-        accountDestinate.setBalance(accountDestinate.getBalance()+amount);
 
         return new ResponseEntity<>("Transaction ok (Y) ",HttpStatus.CREATED);
     }

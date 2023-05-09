@@ -23,15 +23,15 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers("/web/html/register.html","/web/css/**", "/web/Js/register.js").permitAll()
                 .antMatchers("/web/html/index.html","/web/Js/index.js").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/logout").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/logout").hasAnyAuthority("CLIENT", "ADMIN")
                 .antMatchers(HttpMethod.POST,"/api/clients").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.POST,"/api/clients/current/accounts").hasAnyAuthority ("CLIENT","ADMIN")
-                .antMatchers("/manager.html", "/rest/**", "/h2-console","/api/clients","/api/clients/","/api/accounts","/api/accounts/").hasAuthority("ADMIN")
-
+                .antMatchers(HttpMethod.POST,"/api/clients/current/accounts").hasAuthority ("CLIENT")
+                .antMatchers(HttpMethod.POST,"/api/loans").hasAuthority("CLIENT")
+                .antMatchers("/manager.html", "/rest/**", "/h2-console","/api/clients","/api/accounts","/api/accounts/").hasAuthority("ADMIN")
+                .antMatchers("/api/loans").hasAuthority("CLIENT")
                 .antMatchers( "/api/clients/current/cards").hasAuthority("CLIENT")
-                .antMatchers("/api/clients/current/accounts").hasAnyAuthority ("CLIENT","ADMIN")
-
+                .antMatchers("/api/clients/current/accounts").hasAuthority ("CLIENT")
                 .antMatchers("/web/Js/**").hasAnyAuthority("CLIENT", "ADMIN")
                 .antMatchers("/web/html/**").hasAuthority("CLIENT");
                // .anyRequest().denyAll();

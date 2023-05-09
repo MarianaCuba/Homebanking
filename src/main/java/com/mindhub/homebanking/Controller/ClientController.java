@@ -5,6 +5,7 @@ import com.mindhub.homebanking.Models.Account;
 import com.mindhub.homebanking.Models.Client;
 import com.mindhub.homebanking.Repository.AccountRepository;
 import com.mindhub.homebanking.Repository.ClientRepository;
+import com.mindhub.homebanking.Service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.HttpStatus;
@@ -27,10 +28,12 @@ public class ClientController {
     private AccountRepository accountRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ClientService clientService;
 
     @RequestMapping ("/api/clients")
     public List<ClientDTO> getClients(){
-        return clientRepository.findAll().stream().map(client -> new ClientDTO(client)).collect(toList());
+        return clientService.getClients();
     }
 /*  @RequestMapping("/api/clients/{id}")
     public ClientDTO getClient (@PathVariable Long id){
@@ -39,7 +42,7 @@ public class ClientController {
 
     @RequestMapping("api/clients/current")
     public ClientDTO getClient(Authentication authentication){
-        return new ClientDTO(clientRepository.findByEmail(authentication.getName()));
+        return clientService.getClient(authentication);
     }
 
 
@@ -77,7 +80,7 @@ public class ClientController {
 
 
                 Client clientRegister = new Client(firstName, lastName, email, passwordEncoder.encode(password));
-                clientRepository.save(clientRegister);
+                clientService.saveClient(clientRegister);
                 Account accountRegister = new Account(accountAleatory, LocalDateTime.now(), 0);
                 clientRegister.addAccount(accountRegister);
                 accountRepository.save(accountRegister);

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/styleWeb.css">
+    <link rel="shortcut icon" href="../css/imagenes/c4fe889ee4828391ca985f831f8c0b80-mano-sosteniendo-la-bolsa-de-dinero.png" type="image/x-icon">
+ 
+    <title>Loans-Application</title>
+</head>
+<body>
+    <div id="app">
+        <header >
+            <div class="col pe-0">
+                <nav class="navbar navbar-expand-lg bg-header navbar-dark">
+                <!-- <div class="d-flex align-items-center gap-3"> -->
+                    <img class="imagen-logo ms-auto me-auto" src="../css/imagenes/c4fe889ee4828391ca985f831f8c0b80-mano-sosteniendo-la-bolsa-de-dinero.png" alt="logo">
+                    <h1> Mindhub | Brother Bank </h1>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                            <li class="nav-item">
+                              <button class="button-nav">
+                                <a class="span" href="../html/accounts.html">Accounts</a>
+                            </button>
+                            </li>
+                            <li class="nav-item">
+                              <button class="button-nav">
+                                <a class="span " href="../html/cards.html">Cards</a>
+                            </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="button-nav">
+                                  <a class="span " href="../html/transfers.html">Transfers</a>
+                              </button>
+                              </li>
+                            <li class="nav-item">
+                                <button class="button-nav">
+                                    <a @click.prevent="logout" class="span " href="">Salir</a>
+                                </button>>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fs-4" href="#"></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- </div> -->
+                </nav>
+    
+            </div>
+     
+        </header>
+        <main>
+            {{loanSelect}} 
+            {{interes}}
+            <div class="d-flex justify-content-center pt-5">
+                <form  class="p-3 rounded fondo-login" @submit.prevent="createLoan">
+                    <h2 class="text-center">loans</h2>
+                    <div class="d-flex gap-3 ">
+                        <template v-for=" loan of dataLoan">
+                            <div class=" d-flex gap-1" >
+                                <label :for="loan.name" class="form-label">{{loan.name}}</label>
+                                <input type="radio" :id="loan.name" :value="loan.name" v-model="checked" required >
+                            </div>
+                        </template>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Amount</label>
+                        <input type="number" id="amount" v-model="amount">
+                    </div>
+                    <div class="mb-3">
+                        <label for="payments" class="form-label">Payments</label>
+                        <select class="form-select mb-3" aria-label="Default select example" v-model="selectPayments" required id="payments">
+                            <option selected class="fs-6" value="">Select menu</option>
+                            <template v-for="payment of dataSelect.payments" v-if="dataSelect"> 
+                                    <option :value="payment" class="fs-6">{{payment}}</option>   
+                            </template>
+                        
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="account" class="form-label">Account</label>
+                        <select class="form-select mb-3" aria-label="Default select example" v-model="destinateAccount" required id="account">
+                            <option selected class="fs-6" value="">Select menu</option>
+                            <template v-for="account of data">
+                                <option :value="account.number" class="fs-6">{{account.number}}</option>
+                            </template>
+                        </select>
+                    
+                        </div>
+                        <button type="submit" class="btn btn-primary" >Creat</button>
+                    </form>
+                </div>
+                <div class="accounts d-flex justify-content-evenly ">   
+                    <template v-for="loan of dataLoan">
+                        <div class="container-account-loans pt-4 ">   
+                            <div class="card-account gap-3">
+                                <h3>{{loan.name}}</h3>
+                                <h6> Maximum amount:{{loan.amount}}</h6>
+                                <h5> {{loan.payments}}</h5>
+                            </div>
+                        </div>
+                    </template>  
+                </div>
+                <div class="p-3">
+                    <table class="table container tabla-loans">
+                        <thead>
+                            <tr>
+                                <th scope="col">Table</th>
+                                <th scope="col">Interest</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>interest</td>
+                                <td>{{amountInteres}}</td>
+                            </tr>
+                            <tr>
+                                <td>Total amount with interest</td>
+                                <td>{{totalAmountInteres}}</td>
+                            </tr>
+                            <tr>
+                                <td>quotas value</td>
+                                <td>{{cuotas}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </main>
+        <footer>
+        </footer>
+    </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+      <script src="../Js/loan-application.js"></script>
+</body>
+</html>
