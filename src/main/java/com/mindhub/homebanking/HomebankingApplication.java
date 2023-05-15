@@ -24,15 +24,15 @@ public class HomebankingApplication {
 	}
 
 
-	LocalDateTime now = LocalDateTime.now();
+	/*LocalDateTime now = LocalDateTime.now();
 	double cuentaRamdon = Math.random();
 	String numeroCuenta = "vin" + Double.toString(cuentaRamdon);
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;*/
 
 
-	@Bean
+/*	@Bean
 	public CommandLineRunner initData(ClientRepository repository , AccountRepository accountRepository , TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository, CardRepository cardRepository) {
 		return (args) -> {
 			// save a couple of customers
@@ -100,6 +100,6 @@ public class HomebankingApplication {
 
 
 		};
-	}
+	}*/
 
 }

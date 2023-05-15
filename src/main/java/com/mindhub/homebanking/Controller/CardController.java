@@ -6,14 +6,14 @@ import com.mindhub.homebanking.Dtos.ClientDTO;
 import com.mindhub.homebanking.Models.*;
 import com.mindhub.homebanking.Repository.CardRepository;
 import com.mindhub.homebanking.Repository.ClientRepository;
+import com.mindhub.homebanking.Service.AccountService;
+import com.mindhub.homebanking.Service.CardService;
+import com.mindhub.homebanking.Service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,24 +28,34 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 public class CardController {
-    @Autowired
+/*    @Autowired
     private CardRepository cardRepository;
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientRepository clientRepository;*/
+    @Autowired
+    private CardService cardService;
+    @Autowired
+    private ClientService clientService;
 
 
 
-    @RequestMapping("api/clients/current/cards")
+
+
+    @GetMapping("api/clients/current/cards")
     public List<CardDTO> getAccounts(Authentication authentication) {
-        return new ClientDTO(clientRepository.findByEmail(authentication.getName())).getCards().stream().collect(toList());
+        return cardService.getCards(authentication);
     }
+/*    @Override
+    public List<AccountDTO> getAccountsAuthentication (Authentication authentication){
+        return new ClientDTO(clientRepository.findByEmail(authentication.getName())).getAccounts().stream().collect(toList());
+    }*/
 
-    @RequestMapping(path = "api/clients/current/cards", method = RequestMethod.POST)
+    @PostMapping("api/clients/current/cards")
     public ResponseEntity<Object> addCard (
             Authentication authentication,
             @RequestParam CardType type, @RequestParam CardColor color) {
 
-        Client selectClient = clientRepository.findByEmail(authentication.getName());
+        Client selectClient = clientService.findByEmail(authentication.getName());
 
         Set<Card> cards= selectClient.getCards().stream().filter(card -> card.getType() == type).collect(toSet());
 
@@ -68,13 +78,13 @@ public class CardController {
 
         do {
             randomCard = generaRandomCardNumber();
-        } while (cardRepository.findBynumber(randomCard) != null);
+        } while (cardService.findByNumber(randomCard) != null);
 
 
 
         Card newCard = new Card(selectClient.getFirstName() +" "+selectClient.getLastName(),type, color,randomCard,randomCvv, LocalDate.now(),LocalDate.now().plusYears(5));
         selectClient.addCard(newCard);
-        cardRepository.save(newCard);
+        cardService.saveCard(newCard);
 
 
         return new ResponseEntity<>(CREATED);

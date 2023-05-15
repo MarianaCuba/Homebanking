@@ -6,14 +6,15 @@ import com.mindhub.homebanking.Dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.Dtos.LoanDTO;
 import com.mindhub.homebanking.Models.*;
 import com.mindhub.homebanking.Repository.*;
+import com.mindhub.homebanking.Service.AccountService;
+import com.mindhub.homebanking.Service.ClientLoanService;
+import com.mindhub.homebanking.Service.ClientService;
+import com.mindhub.homebanking.Service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.accessibility.Accessible;
 import javax.transaction.Transactional;
@@ -29,29 +30,38 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @RestController
 public class LoanController {
-    @Autowired
+/*    @Autowired
     private ClientRepository clientRepository;
     @Autowired
     private LoanRepository loanRepository;
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
-    private TransactionRepository transactionRepository;
-    @Autowired
-    private ClientLoanRepository clientLoanRepository;
+    private TransactionRepository transactionRepository;*/
+  /*  @Autowired
+    private ClientLoanRepository clientLoanRepository;*/
 
-    @RequestMapping("/api/loans")
+    @Autowired
+    private LoanService loanService;
+    @Autowired
+    private ClientService clientService;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private ClientLoanService clientLoanService;
+
+    @GetMapping("/api/loans")
     public List<LoanDTO> getLoans(){
-        return loanRepository.findAll().stream().map(loan -> new LoanDTO(loan)).collect(Collectors.toList());
+        return loanService.getLoanDto();
     }
     @Transactional
-    @RequestMapping(path = "/api/loans", method = RequestMethod.POST)
+    @PostMapping("/api/loans")
     public ResponseEntity<Object> newLoans (Authentication authentication, @RequestBody LoanApplicationDTO loanApplicationDTO){
 
-        Client client = clientRepository.findByEmail(authentication.getName());
-        Loan loan = loanRepository.findById(loanApplicationDTO.getId()).orElse(null);
-        Account account = accountRepository.findByNumber(loanApplicationDTO.getNumberAccountDestinate());
-        ClientLoan clientLoan1 = clientLoanRepository.findById(loan.getId()).orElse(null);
+        Client client = clientService.findByEmail(authentication.getName());
+        Loan loan = loanService.findById(loanApplicationDTO.getId()).orElse(null);
+        Account account = accountService.findByNumber(loanApplicationDTO.getNumberAccountDestinate());
+        ClientLoan clientLoan1 = clientLoanService.findById(loan.getId()).orElse(null);
 
         List<Loan> loans = new ArrayList<>();
 /*        for (Loan loan2 : clientLoanRepository.getReferenceById(client.getId()).getLoan()) {
@@ -93,7 +103,7 @@ public class LoanController {
 
 
         ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount() + (loanApplicationDTO.getAmount()*0.2), loanApplicationDTO.getPayments());
-        clientLoanRepository.save(clientLoan);
+        clientLoanService.saveClientLoan(clientLoan);
 
         Transaction transaction = new Transaction(loanApplicationDTO.getAmount(), TransactionType.CREDIT,loan.getName()+"loan approved", LocalDateTime.now());
 
@@ -102,7 +112,7 @@ public class LoanController {
 
         loan.addClientLoan(clientLoan);
         client.addClientLoan(clientLoan);
-        clientRepository.save(client);
+        clientService.saveClient(client);
 
 
         return new ResponseEntity<>("Successful loan",CREATED);

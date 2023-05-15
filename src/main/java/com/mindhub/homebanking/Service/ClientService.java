@@ -10,4 +10,6 @@ public interface ClientService {
     void saveClient(Client client);
     List<ClientDTO> getClients();
     ClientDTO getClient(Authentication authentication);
+    Client findByEmail(String email);
+
 }

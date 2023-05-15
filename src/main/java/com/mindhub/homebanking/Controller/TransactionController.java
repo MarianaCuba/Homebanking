@@ -8,6 +8,9 @@ import com.mindhub.homebanking.Models.TransactionType;
 import com.mindhub.homebanking.Repository.AccountRepository;
 import com.mindhub.homebanking.Repository.ClientRepository;
 import com.mindhub.homebanking.Repository.TransactionRepository;
+import com.mindhub.homebanking.Service.AccountService;
+import com.mindhub.homebanking.Service.ClientService;
+import com.mindhub.homebanking.Service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,23 +24,29 @@ import java.util.stream.Collectors;
 
 @RestController
 public class TransactionController {
-    @Autowired
+/*    @Autowired
     private ClientRepository clientRepository;
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionRepository transactionRepository;*/
 
+    @Autowired
+    private ClientService clientService;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private TransactionService transactionService;
 
     @Transactional
-    @RequestMapping(path ="/api/clients/current/transactions", method = RequestMethod.POST)
+    @PostMapping("/api/clients/current/transactions")
     public ResponseEntity<Object> newTransaction (
             Authentication authentication, @RequestParam Double amount, @RequestParam String description,
             @RequestParam String initialAccount, @RequestParam String destinateAccount){
 
-        Client client = clientRepository.findByEmail(authentication.getName());
-        Account accountInitial = accountRepository.findByNumber(initialAccount.toUpperCase());
-        Account accountDestinate = accountRepository.findByNumber(destinateAccount.toUpperCase());
+        Client client = clientService.findByEmail(authentication.getName());
+        Account accountInitial = accountService.findByNumber(initialAccount.toUpperCase());
+        Account accountDestinate = accountService.findByNumber(destinateAccount.toUpperCase());
 
         // amount :
         if (amount == null || amount == 0 || amount.isNaN()){
@@ -80,8 +89,8 @@ public class TransactionController {
         accountInitial.setBalance(accountInitial.getBalance()-amount);
         accountDestinate.setBalance(accountDestinate.getBalance()+amount);
 
-        transactionRepository.save(debitTransaction);
-        transactionRepository.save(creditTransaction);
+        transactionService.saveTransaction(debitTransaction);
+        transactionService.saveTransaction(creditTransaction);
 
 
         return new ResponseEntity<>("Transaction ok (Y) ",HttpStatus.CREATED);
