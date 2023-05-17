@@ -40,5 +40,10 @@ public class CardServiceImplement implements CardService {
         return cardRepository.findByCvv(cvv);
     }
 
+    @Override
+    public Card findById(long id) {
+        return cardRepository.findById(id).orElse(null);
+    }
+
 
 }

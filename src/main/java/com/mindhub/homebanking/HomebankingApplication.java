@@ -24,15 +24,15 @@ public class HomebankingApplication {
 	}
 
 
-	/*LocalDateTime now = LocalDateTime.now();
+	LocalDateTime now = LocalDateTime.now();
 	double cuentaRamdon = Math.random();
 	String numeroCuenta = "vin" + Double.toString(cuentaRamdon);
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;*/
+	private PasswordEncoder passwordEncoder;
 
 
-/*	@Bean
+	@Bean
 	public CommandLineRunner initData(ClientRepository repository , AccountRepository accountRepository , TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository, CardRepository cardRepository) {
 		return (args) -> {
 			// save a couple of customers
@@ -44,11 +44,11 @@ public class HomebankingApplication {
 
 			Account accountResgister = new Account(numeroCuenta, now, 0);
 
-			Transaction transaction1 = new Transaction(100.55, TransactionType.CREDIT,"varios",now);
-			Transaction transaction2 = new Transaction(1500.98, TransactionType.DEBIT, "otros",now);
-			Transaction transaction3 = new Transaction(1350.78, TransactionType.DEBIT,"clothes",now.plusDays(1));
-			Transaction transaction4 = new Transaction(2000, TransactionType.CREDIT,"ingreso", now.plusDays(1));
-			Transaction transaction5 = new Transaction(300,TransactionType.DEBIT, "candies",now);
+			Transaction transaction1 = new Transaction(100.55, TransactionType.CREDIT,"varios",now,10.0);
+			Transaction transaction2 = new Transaction(1500.98, TransactionType.DEBIT, "otros",now,10.0);
+			Transaction transaction3 = new Transaction(1350.78, TransactionType.DEBIT,"clothes",now.plusDays(1),13.0);
+			Transaction transaction4 = new Transaction(2000, TransactionType.CREDIT,"ingreso", now.plusDays(1),14.0);
+			Transaction transaction5 = new Transaction(300,TransactionType.DEBIT, "candies",now,5.0);
 
 			Loan loan1 = new Loan( "person", 100000, List.of( 6,12,24));
 			Loan loan2 = new Loan("mortgage", 500000, List.of(12,24,36,48,60));
@@ -58,11 +58,11 @@ public class HomebankingApplication {
 			loanRepository.save(loan2);
 			loanRepository.save(loan3);
 
-			ClientLoan clientLoan1 = new ClientLoan(400000, 60);
-			ClientLoan clientLoan2 = new ClientLoan(50000,12);
+			ClientLoan clientLoan1 = new ClientLoan(400000, 60,420000.0);
+			ClientLoan clientLoan2 = new ClientLoan(50000,12,52000.0);
 
-			Card card1 = new Card("Melba Morel", CardType.CREDIT, CardColor.GOLD, "3609-2212-0521-1007",642, LocalDate.now(), LocalDate.now().plusYears(5));
-			Card card2 = new Card("Melba Morel", CardType.DEBIT,CardColor.TITANIUM,"4789-5678-9231-2204", 569, LocalDate.now(), LocalDate.now().plusYears(5));
+			Card card1 = new Card("Melba Morel", CardType.CREDIT, CardColor.GOLD, "3609-2212-0521-1007",642, LocalDate.now().minusYears(5), LocalDate.now().minusDays(1),true);
+			Card card2 = new Card("Melba Morel", CardType.DEBIT,CardColor.TITANIUM,"4789-5678-9231-2204", 569, LocalDate.now(), LocalDate.now().plusYears(5),true);
 
 			account1.addTransaction(transaction1);
 			account1.addTransaction(transaction2);
@@ -100,6 +100,6 @@ public class HomebankingApplication {
 
 
 		};
-	}*/
+	}
 
 }

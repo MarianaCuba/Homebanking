@@ -108,11 +108,14 @@
                         <td colspan="2" class="titulo-tabla text-center text-white fs-4">Name</td>
                         <td colspan="2" class="titulo-tabla text-center text-white fs-4">Amount</td>
                         <td colspan="2" class="titulo-tabla text-center text-white fs-4">Payments</td>
+                        <td colspan="2" class="titulo-tabla text-center text-white fs-4">pagos</td>
                       </tr>
                       <tr v-for="loan of loans">
                         <td colspan="2" class="text-center text-white fs-5">{{loan.name}}</td>
                         <td colspan="2" class="text-center text-white fs-5">${{loan.amount}}</td>
                         <td colspan="2" class="text-center text-white fs-5">{{loan.payments}}</td>
+                        <td colspan="2" class="text-center text-white fs-5">
+                        </td>
      
                       </tr>
                 </table>
@@ -126,7 +129,7 @@
                 <a href="../html/loan-application.html"> Apply </a>
             </button>
            </div>
-            
+
 
 
         </div>

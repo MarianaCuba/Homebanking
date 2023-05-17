@@ -18,6 +18,7 @@ public class ClientServiceImplement implements ClientService {
     private ClientRepository clientRepository;
     @Override
     public void saveClient(Client client) {
+        clientRepository.save(client);
     }
     @Override
     public List<ClientDTO> getClients() {
@@ -30,5 +31,9 @@ public class ClientServiceImplement implements ClientService {
     @Override
     public Client findByEmail(String email) {
         return clientRepository.findByEmail(email);
+    }
+
+    public Client getClientAuthentication(Authentication authentication){
+        return clientRepository.findByEmail(authentication.getName());
     }
 }

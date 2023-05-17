@@ -6,7 +6,9 @@ createApp({
             datos:[],
             cards:[],
             cardDebit:[],
-            cardCredit:[]
+            cardCredit:[],
+            cardActive:[],
+            actualDate:""
         }
     },
     created(){
@@ -19,14 +21,24 @@ createApp({
                 this.datos = response.data;
                 this.cards = this.datos.cards
                 console.log(this.cards);
-                this.cardDebit = this.datos.cards.filter(card => card.type==="DEBIT")
-                this.cardCredit = this.datos.cards.filter(card => card.type==="CREDIT")
+                this.cardDebit = this.datos.cards.filter(card => card.type==="DEBIT" && card.active)
+                this.cardCredit = this.datos.cards.filter(card => card.type==="CREDIT" && card.active)
+                this.cardActive = this.cards.filter(card => card.active)
+
+                this.actualDate = new Date().toLocaleDateString().split(",")[0].split("/").reverse().join("-");
+
                 console.log(this.cardCredit);
-                console.log(this.cardDebit);
-                
+                console.log(this.cardDebit); 
                 console.log(this.datos);
               
             } )
+        },
+        cardDelete(id){
+            axios.put(`http://localhost:8080/api/clients/current/cards/${id}`) 
+            .then(response => {
+                window.location.href="/web/html/cards.html"
+            })
+            .catch(error=> console.log("eliminada"))
         },
         logout(){
             Swal.fire({

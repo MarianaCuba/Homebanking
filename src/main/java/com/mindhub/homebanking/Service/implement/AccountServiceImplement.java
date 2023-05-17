@@ -25,7 +25,7 @@ public class AccountServiceImplement implements AccountService {
 
     @Override
    public void saveAccount(Account account){
-
+        accountRepository.save(account);
     }
 
     @Override

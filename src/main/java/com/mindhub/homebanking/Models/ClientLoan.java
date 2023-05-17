@@ -16,6 +16,7 @@ public class ClientLoan {
     private double amount;
     private int payments;
 
+    private Double amountTotal;
 
     @ManyToOne (fetch = FetchType.EAGER)
     private Client client;
@@ -24,9 +25,10 @@ public class ClientLoan {
 
     public ClientLoan(){}
 
-    public ClientLoan(double amount, int payments) {
+    public ClientLoan(double amount, int payments,Double amountTotal) {
         this.amount = amount;
         this.payments = payments;
+        this.amountTotal= amountTotal;
 
     }
 
@@ -66,8 +68,11 @@ public class ClientLoan {
         this.loan = loan;
     }
 
+    public Double getAmountTotal() {
+        return amountTotal;
+    }
 
-
-
-
+    public void setAmountTotal(Double amountTotal) {
+        this.amountTotal = amountTotal;
+    }
 }

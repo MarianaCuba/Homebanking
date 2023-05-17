@@ -26,6 +26,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 import static org.springframework.http.HttpStatus.CREATED;
 
+@CrossOrigin(origins = {"*"})
 @RestController
 public class CardController {
 /*    @Autowired
@@ -57,7 +58,7 @@ public class CardController {
 
         Client selectClient = clientService.findByEmail(authentication.getName());
 
-        Set<Card> cards= selectClient.getCards().stream().filter(card -> card.getType() == type).collect(toSet());
+        Set<Card> cards= selectClient.getCards().stream().filter(card -> card.getType() == type && card.getActive()).collect(toSet());
 
               if (type == null) {
                   return new ResponseEntity<>("Missing type", HttpStatus.FORBIDDEN);
@@ -68,7 +69,7 @@ public class CardController {
             if (cards.size() >= 3){
                 return new ResponseEntity<>("You can't have more than 3 cards", HttpStatus.FORBIDDEN);
             }
-            if (cards.stream().anyMatch(card -> card.getColor() == color)) {
+            if (cards.stream().anyMatch(card -> card.getColor() == color && card.getActive())) {
                 return new ResponseEntity<>("You can't have same card", HttpStatus.FORBIDDEN);
             }
 
@@ -82,7 +83,7 @@ public class CardController {
 
 
 
-        Card newCard = new Card(selectClient.getFirstName() +" "+selectClient.getLastName(),type, color,randomCard,randomCvv, LocalDate.now(),LocalDate.now().plusYears(5));
+        Card newCard = new Card(selectClient.getFirstName() +" "+selectClient.getLastName(),type, color,randomCard,randomCvv, LocalDate.now(),LocalDate.now().plusYears(5),true);
         selectClient.addCard(newCard);
         cardService.saveCard(newCard);
 
@@ -90,5 +91,25 @@ public class CardController {
         return new ResponseEntity<>(CREATED);
     }
 
+    @PutMapping("api/clients/current/cards/{id}")
+    public ResponseEntity<Object> deleteCard (Authentication authentication, @PathVariable long id){
+        Client client = clientService.findByEmail(authentication.getName());
+        Card card = cardService.findById(id);
+
+        if (!client.getCards().contains(card)) {
+            return new ResponseEntity<>("this card is not yours",HttpStatus.FORBIDDEN);
+        }
+        if (card == null){
+            return new ResponseEntity<>("this card not found",HttpStatus.FORBIDDEN);
+        }
+        if (!card.getActive()){
+            return new ResponseEntity<>("this card is inactive",HttpStatus.FORBIDDEN);
+        }
+
+        card.setActive(false);
+        cardService.saveCard(card);
+
+        return new ResponseEntity<>("delete", HttpStatus.ACCEPTED);
+    }
 
 }

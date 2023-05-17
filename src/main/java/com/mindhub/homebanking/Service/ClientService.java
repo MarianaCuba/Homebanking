@@ -11,5 +11,6 @@ public interface ClientService {
     List<ClientDTO> getClients();
     ClientDTO getClient(Authentication authentication);
     Client findByEmail(String email);
+    Client getClientAuthentication(Authentication authentication);
 
 }

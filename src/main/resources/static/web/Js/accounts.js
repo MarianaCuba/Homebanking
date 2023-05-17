@@ -19,9 +19,10 @@ created(){
 },
   methods: {
     loadData(){
+        //,{headers:{'accept':'application/xml'}}
         axios.get('http://localhost:8080/api/clients/current')
         .then(response => {
-          // console.log(response)
+           console.log(response.data)
             this.datos = response.data;
             this.loans = this.datos.loans
             console.log(this.datos);
@@ -79,7 +80,8 @@ created(){
             allowOutsideClick: () => !Swal.isLoading()
         })
 
-    }
+    },
+    
 
 
      }

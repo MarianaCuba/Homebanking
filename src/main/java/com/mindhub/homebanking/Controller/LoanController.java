@@ -1,45 +1,28 @@
 package com.mindhub.homebanking.Controller;
 
-import com.mindhub.homebanking.Dtos.ClientDTO;
-import com.mindhub.homebanking.Dtos.ClientLoanDTO;
+
 import com.mindhub.homebanking.Dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.Dtos.LoanDTO;
 import com.mindhub.homebanking.Models.*;
-import com.mindhub.homebanking.Repository.*;
-import com.mindhub.homebanking.Service.AccountService;
-import com.mindhub.homebanking.Service.ClientLoanService;
-import com.mindhub.homebanking.Service.ClientService;
-import com.mindhub.homebanking.Service.LoanService;
+
+import com.mindhub.homebanking.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import javax.accessibility.Accessible;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toSet;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
+@CrossOrigin(origins = {"*"})
 @RestController
 public class LoanController {
-/*    @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private LoanRepository loanRepository;
-    @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
-    private TransactionRepository transactionRepository;*/
-  /*  @Autowired
-    private ClientLoanRepository clientLoanRepository;*/
+
 
     @Autowired
     private LoanService loanService;
@@ -49,6 +32,9 @@ public class LoanController {
     private AccountService accountService;
     @Autowired
     private ClientLoanService clientLoanService;
+    @Autowired
+    private TransactionService transactionService;
+
 
     @GetMapping("/api/loans")
     public List<LoanDTO> getLoans(){
@@ -62,14 +48,6 @@ public class LoanController {
         Loan loan = loanService.findById(loanApplicationDTO.getId()).orElse(null);
         Account account = accountService.findByNumber(loanApplicationDTO.getNumberAccountDestinate());
         ClientLoan clientLoan1 = clientLoanService.findById(loan.getId()).orElse(null);
-
-        List<Loan> loans = new ArrayList<>();
-/*        for (Loan loan2 : clientLoanRepository.getReferenceById(client.getId()).getLoan()) {
-            int longitud = clientLoanRepository.getReferenceById(client.getId()).getLoan()).size();
-
-            loans.add(clientLoanRepository.getReferenceById(client.getId()).getLoan());
-            System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaa" + loans);
-        }*/
 
 
         if (loan == null){
@@ -100,12 +78,10 @@ public class LoanController {
             return new ResponseEntity<>("ya tenes uno de este tipo ", FORBIDDEN);
         }
 
-
-
-        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount() + (loanApplicationDTO.getAmount()*0.2), loanApplicationDTO.getPayments());
+        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount(), loanApplicationDTO.getPayments(), (loanApplicationDTO.getAmount()*0.2));
         clientLoanService.saveClientLoan(clientLoan);
 
-        Transaction transaction = new Transaction(loanApplicationDTO.getAmount(), TransactionType.CREDIT,loan.getName()+"loan approved", LocalDateTime.now());
+        Transaction transaction = new Transaction(loanApplicationDTO.getAmount(), TransactionType.CREDIT,loan.getName()+"loan approved", LocalDateTime.now(),account.getBalance() + loanApplicationDTO.getAmount());
 
         account.setBalance(account.getBalance() + loanApplicationDTO.getAmount());
         account.addTransaction(transaction);
@@ -117,4 +93,47 @@ public class LoanController {
 
         return new ResponseEntity<>("Successful loan",CREATED);
     }
+
+    @Transactional
+    @PostMapping ("/api/loans/pay")
+    public ResponseEntity<Object> paymentsLoan( Authentication authentication, @RequestParam Long idLoan, @RequestParam Double amount, @RequestParam String account){
+        Client client = clientService.findByEmail(authentication.getName());
+        ClientLoan clientLoan = clientLoanService.findById(idLoan).orElse(null);
+        Account accountA = accountService.findByNumber(account);
+
+
+        if(clientLoan == null){
+            return new ResponseEntity<>(" o.0",FORBIDDEN);
+        }
+        if (account.isBlank()){
+            return new ResponseEntity<>(" vacio ",FORBIDDEN);
+        }
+        if (amount <= 0 ){
+            return new ResponseEntity<>(" no pueden ser montos negativos ni 0  ",FORBIDDEN);
+        }
+        if (accountA.getBalance()<amount){
+            return new ResponseEntity<>(" no tenes suficientes fondos ",FORBIDDEN);
+        }
+
+        accountA.setBalance(accountA.getBalance()-amount);
+        clientLoan.setAmountTotal(clientLoan.getAmountTotal()-amount);
+
+        String description = "pay" + clientLoan.getLoan().getName() + "loan";
+
+        Transaction transaction = new Transaction(amount,TransactionType.DEBIT,description,LocalDateTime.now(),accountA.getBalance());
+        accountA.addTransaction(transaction);
+        transactionService.saveTransaction(transaction);
+        double newBalance= accountA.getBalance() - amount;
+        accountA.setBalance(newBalance);
+        accountService.saveAccount(accountA);
+
+       if (amount < clientLoan.getAmountTotal()){
+            clientLoan.setPayments(clientLoan.getPayments()-1);
+        }else {
+            clientLoan.setPayments(0);
+        }
+
+    return new ResponseEntity<>("(Y)",CREATED);
+    }
+
 }

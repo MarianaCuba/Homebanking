@@ -75,8 +75,6 @@ public class ClientController {
 
         }
         if (email.contains("@")) {
-            // return new ResponseEntity<>("it is not an email", HttpStatus.FORBIDDEN);
-
 
             String accountAleatory;
             do {

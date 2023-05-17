@@ -1,2 +1,5 @@
-package com.mindhub.homebanking;public class RepositoriesTest {
+package com.mindhub.homebanking;
+
+public class RepositoriesTest {
+
 }
