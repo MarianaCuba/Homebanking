@@ -25,31 +25,38 @@ createApp ({
         loadData() {
             axios.get('http://localhost:8080/api/clients/current/accounts')
                 .then(response => {
-                    this.data = response.data
+                    this.data = response.data.filter(account => account.active == true)
                     console.log(this.data);
+                    // this.dataLoan = this.data.loans
+                    // console.log(this.dataLoan);
 
                 })
                 .catch(error => console.log(error));
         },
-        datosLoan(){
-            axios.get('http://localhost:8080/api/loans')
-            .then(response => {
-                this.dataLoan = response.data
-                console.log(this.dataLoan);
+         datosLoan(){
+             axios.get('http://localhost:8080/api/loans/obtain')
+             .then(response => {
+                 this.dataLoan = response.data
+                 console.log(this.dataLoan);
                 // this.loanSelect()
                
-            })
-            // .catch(error => console.log(error))
-        },
+               
+             })
+             // .catch(error => console.log(error))
+         },
         createLoan(){
         
             this.idLoan = this.dataSelect.id
              
-             // Swal.fire({
+               Swal.fire({
+            //     title: 'Are you sure that you want to log out',
+            //     showCancelButton: true,
+            //     confirmButtonText: 'Sure',
+            //     showLoaderOnConfirm: true,
                   
-                //   preConfirm: () => {
-                //       return 
-                      axios.post('/api/loans', {
+                   preConfirm: () => {
+                    //   return 
+                       axios.post('/api/loans/create', {
                          id : this.idLoan,
                          amount : this.amount,
                          payments : this.selectPayments,
@@ -65,17 +72,18 @@ createApp ({
                              .then( () => window.location.href="/web/html/accounts.html")
 
                          .catch(error => {
+                            console.log(error)
                               Swal.fire({
                                   icon: 'error',
                                   text: error.response.data,
-                                  confirmButtonColor: "rgb(16, 204, 88)",
+                                
                               })
                           })
               )
-           // },
+            },
                   allowOutsideClick: () => !Swal.isLoading()
-              //})
-              .catch(error => {console.log(error)})
+              })
+            //  .catch(error => {console.log(error)})
         },
         logout(){
             Swal.fire({
@@ -104,27 +112,39 @@ createApp ({
     
 
     },
-    computed:{
-           loanSelect(){
-            this.dataSelect = this.dataLoan.find( loan => loan.name == this.checked)
+     computed:{
+            loanSelect(){
+             this.dataSelect = this.dataLoan.find( loan => loan.name == this.checked)
             
-           console.log(this.dataSelect);
-           if(this.dataSelect){
-           this.idLoan = this.dataSelect.id }
-           console.log(   
-             this.idLoan,
-             this.amount,
-             this.selectPayments,
-             this.destinateAccount);
+            console.log(this.dataSelect);
+            if(this.dataSelect){
+            this.idLoan = this.dataSelect.id }
+            console.log(   
+              this.idLoan,
+              this.amount,
+              this.selectPayments,
+              this.destinateAccount);
             
-        },
-         interes(){
-                this.amountInteres = this.amount *0.2
-                this.totalAmountInteres = this.amountInteres + this.amount
-                this.cuotas = this.totalAmountInteres / this.selectPayments 
-                console.log(this.cuotas);
-                console.log(this.amountInteres);
-        }
+         },
+        //  interes(){
+        //     if(this.checked == loan.name){
+        //        this.amountInteres = this.amount * 0.30  }
+        //     else if(this.checked == loan.name){
+        //         this.amountInteres = this.amount * 0.20
+        //     } else{
+        //         this.amountInteres = this.amount * 0.10
+        //     }
+            
+        //     this.totalAmountInteres = this.amountInteres + this.amount
+        //     this.cuotas = this.totalAmountInteres / this.selectPayments
+        //  }
+       interes(){
+              this.amountInteres = this.amount *0.2
+              this.totalAmountInteres = this.amountInteres + this.amount
+              this.cuotas = this.totalAmountInteres / this.selectPayments 
+              console.log(this.cuotas);
+              console.log(this.amountInteres);
+         }
         // dataLoanId(){
         //     this.idLoan = this.dataSelect.id
         //     console.log(this.idLoan);

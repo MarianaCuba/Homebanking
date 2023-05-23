@@ -15,7 +15,7 @@
     <header >
         <div class="col pe-0">
             <nav class="navbar navbar-expand-lg bg-header navbar-dark">
-                <div class="d-flex flex-wrap align-items-center ">
+                <div  class="d-flex flex-wrap align-items-center justify-content-evenly "style="width:100%">
                     <img class="imagen-logo ms-auto me-auto" src="../css/imagenes/c4fe889ee4828391ca985f831f8c0b80-mano-sosteniendo-la-bolsa-de-dinero.png" alt="logo">
                     <h1> Mindhub | Brother <span id="text-color">  Bank</span> </h1>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -58,83 +58,127 @@
      
     </header>
     <main >
-        <div class="d-flex justify-content-center p-3">  
-            <button class="bg-transparent">
+        <div class="d-flex justify-content-center p-3" >  
+            <button class="bg-transparent" data-bs-toggle="modal"  data-bs-target="#exampleModal" >
                 <img class="imagenBotonMas" src="../css/imagenes/mas.png" alt="">
-                <h5 class="p-1" @click="creationAccount" href="">New Account</h5>
+                <h5 class="p-1"  href="">New Account</h5>
             </button>
         </div>
         <h2 class="text-center text-white p-3 fs-1"> Your <span id="text-color">Accounts</span></h2>
         <div class="accounts d-flex justify-content-evenly ">
-            <template v-for="dato of datos.accounts" >
+            <template v-for="dato of accounts">
                 <div class="container-account">
                     <div class="card-account gap-3"> 
                         <h3>{{dato.number}}</h3>
-                        <h5>Balance : ${{dato.balance}}</h5>
+                        <h5>{{dato.accountType}}</h5>
+                        <h5>Balance : ${{dato.balance.toLocaleString('en-US')}}</h5>
                         <h5>Created : {{dato.creationDate.slice(0,10)}} {{dato.creationDate.slice(11,16)}}</h5>  
                         <h5><a class="btn " :href="'../html/account.html?id='+dato.id"> Transaction</a></h5> 
+                        <h5> <button  @click="deleteAccount(dato.id)">Delete Account</button></h5>
                     </div>
-
                 </div>
+               
             </template>
         </div>
         <!-- ---------------tabla------------------- -->
-        <div class="d-flex gap-5 flex-column align-items-center ">
+        <div class="d-flex gap-5 flex-column  ">
             
-            <!-- <table class="table table-striped container m-0 m-auto">
-                <tr>
-                    <td colspan="2" class="titulo-tabla text-center text-white">FirstName</td>
-                    <td colspan="2" class="titulo-tabla text-center text-white">LastName</td>
-                    <td colspan="2"class="titulo-tabla text-center text-white">Accounts</td>
-                    <td class="titulo-tabla text-center text-white">Balance</td>
-                    <td class="titulo-tabla text-center text-white">Date</td>
-                    <td class="titulo-tabla text-center text-white">Transaction</td>
-                  </tr>
-                  <tr v-for="dato of datos.accounts">
-                    <td colspan="2" class="text-center">{{datos.firstName}}</td>
-                    <td colspan="2" class="text-center">{{datos.lastName}}</td>
-                    <td colspan="2" class="text-center">{{dato.number}}</td>
-                    <td class="text-center"> {{dato.balance}}</td>
-                    <td class="text-center"> {{dato.creationDate.slice(0,10)}} {{dato.creationDate.slice(11,16)}}</td>
-                    
-                    <td class="text-center"><a :href="./account.html> More </a></td>
-                  </tr>
-            </table> -->
 
-            <div class="container" v-if=" loans.lenght != 0 ">
-                <h2 class="text-center mt-5 mb-2 fs-1 text-white ">Loans</h2>
-                <table class="table table-striped container m-0 m-auto mb-5">
-                    <tr>
-                        <td colspan="2" class="titulo-tabla text-center text-white fs-4">Name</td>
-                        <td colspan="2" class="titulo-tabla text-center text-white fs-4">Amount</td>
-                        <td colspan="2" class="titulo-tabla text-center text-white fs-4">Payments</td>
-                        <td colspan="2" class="titulo-tabla text-center text-white fs-4">pagos</td>
-                      </tr>
-                      <tr v-for="loan of loans">
-                        <td colspan="2" class="text-center text-white fs-5">{{loan.name}}</td>
-                        <td colspan="2" class="text-center text-white fs-5">${{loan.amount}}</td>
-                        <td colspan="2" class="text-center text-white fs-5">{{loan.payments}}</td>
-                        <td colspan="2" class="text-center text-white fs-5">
-                        </td>
-     
-                      </tr>
-                </table>
-             </div> 
-               <div v-else>
+            <h2 class="text-center text-white p-3 fs-1"> Lo<span id="text-color">ans</span></h2>
+            <div class="accounts d-flex justify-content-evenly ">
+                <template v-for="loan of loans" v-if="loans.lenght != 0">
+                    <div class="container-loan">
+                        <div class="card-account gap-3"> 
+                            <h3>{{loan.name}}</h3>
+                            <h5> amount: ${{loan.amount.toLocaleString('en-US')}}</h5>
+                            <h5>Amount with interest : ${{loan.amountTotal.toLocaleString('en-US')}}</h5>
+                            <h5>Payments: {{loan.payments}} </h5>  
+                            <h5> <button data-bs-toggle="modal"  data-bs-target="#exampleModal1"  >pay</button></h5>
+                        </div>
+                    </div>
+                </template>
+                <template v-else>
                     <h2> no hay nada </h2>
-               </div> 
-           <div class="pb-5">
-            <button class="bg-transparent p-1">
+                </template>
+
+        
+         
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class=" ">
+                <p class="text-white bg-danger fs-4"> Get a new loan by click button...</p>
+               </div>
+               <button class="bg-transparent p-1">
                 <img class="imagenBotonMas" src="../css/imagenes/mas.png" alt="">
                 <a href="../html/loan-application.html"> Apply </a>
             </button>
-           </div>
+        </div>
+        <!-- modal account -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Select account type</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="d-flex justify-content-center align-items-center" @submit.prevent="creationAccount">
+                                <div class="form-check">
+                                    <div>
+                                        <label for="current" class="pe-5 form-check-label">Current</label>
+                                        <input type="radio" name="accountType" id="current" class="form-check-input" value="CURRENT" v-model="accountType" required>
+                                    </div>
+                                    <div>
+                                        <label for="saving" class="pe-5 form-check-label">Saving</label>
+                                        <input type="radio" name="accountType" id="saving" class="form-check-input" value="SAVING" v-model="accountType" required>
+                                    </div> 
+                                </div>                        
+                                <button type="submit" class="btn btn-outline-success ">Create</button>
+                            </form>                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- modal pay  -->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                   
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel1">select pay</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="modal-body">
+                    
+                        <form class="d-flex justify-content-center align-items-center">
+                            
+                            <template v-for="loan of loans">
+                           
+                                <div class="form-check">
+                                      <label >Loan Name
+                                            <input type="radio" name="nameLoan" v-model="nameLoan" :value="loan.loanId" required>{{ loan.name}}</label>
+                                    <select class="form-select form-select-lg mb-3 " v-model="selectPay"> 
+                                        <option :value="loan.amount / loan.payments">Valor de cuota: {{loan.amountTotal / loan.payments}}</option>
+                                    </select>
+                                </div>
+                            </template>
 
-
-
+                                   <select class="form-select form-select-lg mb-3 " aria-label="form-select-lg example" v-model="selectAccount"> 
+                                    <option v-for="account of accounts" :value="account.number">account:{{account.number}}</option>
+                                </select>
+                                  
+                            </div>                        
+                            <button type="button"  @click="payLoan" class="btn btn-outline-success">pay</button>
+                        </form>   
+                              
+                    </div> 
+                </div>
+            </div> 
         </div>
 
-    
     </main>
     <footer>
         <h4 class="text-center text-white p-3"> Cohort 44</h4>

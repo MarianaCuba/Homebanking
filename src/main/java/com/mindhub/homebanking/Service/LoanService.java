@@ -11,5 +11,7 @@ public interface LoanService {
     Optional<Loan> findById(long id);
     List<LoanDTO> getLoanDto ();
 
+    void saveLoan(Loan loan);
+
 
 }

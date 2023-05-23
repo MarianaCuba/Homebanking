@@ -19,7 +19,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+        http.cors().and().authorizeRequests()
                 .antMatchers("/web/html/register.html","/web/css/**", "/web/Js/register.js").permitAll()
                 .antMatchers("/web/html/index.html","/web/Js/index.js").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/login").permitAll()
@@ -27,18 +27,18 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/api/clients").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST,"/api/clients/current/accounts").hasAuthority ("CLIENT")
-                .antMatchers(HttpMethod.POST,"/api/loans", "/api/loans/pay").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST,"/api/loans/create", "/api/loans/pay").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST,"/api/admin/loans").hasAuthority("ADMIN")
                 .antMatchers("/manager.html", "/rest/**", "/h2-console","/api/clients","/api/accounts","/api/accounts/").hasAuthority("ADMIN")
-                .antMatchers("/api/loans").hasAuthority("CLIENT")
-                .antMatchers( "/api/clients/current/cards").hasAuthority("CLIENT")
-                .antMatchers("/api/clients/current/accounts").hasAuthority ("CLIENT")
+                .antMatchers("/api/loans/obtain").hasAnyAuthority("CLIENT","ADMIN")//Se unifican para no pisar los permisos
+                .antMatchers( "/api/clients/current/cards").hasAnyAuthority("CLIENT","ADMIN") //Se unifican para no pisar los permisos
+                .antMatchers("/api/clients/current/accounts").hasAnyAuthority("CLIENT","ADMIN")
                 .antMatchers("/web/Js/**").hasAnyAuthority("CLIENT", "ADMIN")
-                .antMatchers("/web/html/**").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.PUT,"api/clients/current/cards/{id}").hasAuthority("CLIENT");
+                .antMatchers("/web/html/**").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/clients/current/deleteaccount").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.PUT,"api/clients/current/cards/{id}","api/clients/current/accounts/{id}").hasAuthority("CLIENT");
                // .anyRequest().denyAll();
-
-
-
+        
         http.formLogin()
 
                 .usernameParameter("email")

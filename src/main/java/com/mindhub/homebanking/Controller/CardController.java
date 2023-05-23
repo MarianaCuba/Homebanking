@@ -1,42 +1,41 @@
 package com.mindhub.homebanking.Controller;
 
-import com.mindhub.homebanking.Dtos.AccountDTO;
+
 import com.mindhub.homebanking.Dtos.CardDTO;
-import com.mindhub.homebanking.Dtos.ClientDTO;
+import com.mindhub.homebanking.Dtos.PaymentDTO;
 import com.mindhub.homebanking.Models.*;
-import com.mindhub.homebanking.Repository.CardRepository;
-import com.mindhub.homebanking.Repository.ClientRepository;
-import com.mindhub.homebanking.Service.AccountService;
 import com.mindhub.homebanking.Service.CardService;
 import com.mindhub.homebanking.Service.ClientService;
+import com.mindhub.homebanking.Service.TransactionService;
+import com.mindhub.homebanking.Util.CardUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+
 import java.util.Set;
 
-import static com.mindhub.homebanking.Models.Card.generaRandomCardNumber;
-import static com.mindhub.homebanking.Models.Card.randomCardCvv;
+
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
-import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.*;
 
 @CrossOrigin(origins = {"*"})
 @RestController
 public class CardController {
-/*    @Autowired
-    private CardRepository cardRepository;
-    @Autowired
-    private ClientRepository clientRepository;*/
+
     @Autowired
     private CardService cardService;
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private TransactionService transactionService;
 
 
 
@@ -75,10 +74,10 @@ public class CardController {
 
 
         String randomCard;
-        int randomCvv = randomCardCvv();
+        int randomCvv = CardUtil.randomCardCvv();
 
         do {
-            randomCard = generaRandomCardNumber();
+            randomCard = CardUtil.generaRandomCardNumber();
         } while (cardService.findByNumber(randomCard) != null);
 
 
@@ -110,6 +109,47 @@ public class CardController {
         cardService.saveCard(card);
 
         return new ResponseEntity<>("delete", HttpStatus.ACCEPTED);
+    }
+
+    @Transactional
+    @PostMapping ("api/clients/current/cardpay")
+    public ResponseEntity<Object> newPayCard (@RequestBody PaymentDTO paymentDTO){
+       // verifico al cliente
+        Card cardClient = cardService.findByNumber(paymentDTO.getNumber()); // verifico el numero de tarjeta
+        Client client = cardClient.getClient();
+        List<Account> accounts = client.getAccounts().stream().collect(toList());
+        List<Account> balanceAccount= accounts.stream().filter(account -> account.getBalance() > paymentDTO.getAmount()).collect(toList());
+
+        Account account = balanceAccount.stream().findFirst().orElse(null);
+       // Optional<Account> account = client.getAccounts().stream().filter(account1 -> account1.getBalance()>= paymentDTO.getAmount()).findFirst(); // filtro las cuentas para encontrar una que tenga un monto mayor al valor que quiero pagar.
+        //Account account = client.getAccounts().stream().filter( account1 -> account1.getBalance() >= paymentDTO.getAmount() ).collect(toList()).get(0);
+
+        if (client == null){
+            return new ResponseEntity<>("not is client",FORBIDDEN);
+        }
+        if (account == null){
+            return new ResponseEntity<>("not is client",FORBIDDEN);
+        }
+        if (client.getCards().stream().filter(card1 -> card1.getNumber().equalsIgnoreCase(paymentDTO.getNumber())).collect(toList()).size() == 0) {
+            return new ResponseEntity<>("This card is not yours",FORBIDDEN);
+        }
+        if (cardClient.getCvv() != paymentDTO.getCvv()){
+            return new ResponseEntity<>("This card is not yours",FORBIDDEN);
+        }
+        if (cardClient.getType() != paymentDTO.getTypeCard()){
+            return new ResponseEntity<>("o.O",FORBIDDEN);
+        }
+
+
+        account.setBalance(account.getBalance()- paymentDTO.getAmount()); // resto a la cuenta el monto ingresado a pagar.
+
+        //creo la transacction
+        Transaction transaction = new Transaction(paymentDTO.getAmount(),TransactionType.DEBIT, "descrpcion",LocalDateTime.now(),account.getBalance(),true);
+        account.addTransaction(transaction);
+        transactionService.saveTransaction(transaction);
+
+
+    return new ResponseEntity<>("pay exitoso",ACCEPTED);
     }
 
 }

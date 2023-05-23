@@ -413,3 +413,31 @@ width: 35rem;
 .tabla-loans{
   background-color: #cb96ee;
 }
+#main-cards{
+display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cardtype{
+  background-color: #cb96ee;
+}
+
+
+@media(max-width: 768px){
+  .carrouselTransfer  {
+    flex-direction: column ;
+    justify-content: center;
+    align-items: center;
+  } 
+  .buttons {
+    align-items: center;
+  }
+  .cardtype{
+    width: 90%;
+    background-color: #cb96ee;
+  }
+  
+
+ 
+ 
+}

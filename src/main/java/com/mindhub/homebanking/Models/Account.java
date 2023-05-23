@@ -13,6 +13,8 @@ public class Account {
     private String number;
     private LocalDateTime creationDate;
     private double balance;
+    private boolean active ;
+    private AccountType accountType;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -28,10 +30,12 @@ public class Account {
 
     }
 
-    public Account(String number, LocalDateTime creationDate, double balance) {
+    public Account(String number, LocalDateTime creationDate, double balance, boolean active, AccountType accountType) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
+        this.active =active;
+        this.accountType = accountType;
 
     }
 
@@ -72,6 +76,21 @@ public class Account {
         this.balance = balance;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
 
     public Set<Transaction> getTransaction() {
         return transactions;
@@ -81,7 +100,7 @@ public class Account {
         transactions.add(transaction);
     }
     public static String generaRandom(){
-        int cuentaRandom = (int) (Math.random()*999999+100000);
+        int cuentaRandom = (int) (Math.random()*899999+100000);
         String numberAccount = "vin " + Integer.toString(cuentaRandom);
         return numberAccount;
     }

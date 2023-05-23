@@ -2,6 +2,7 @@ package com.mindhub.homebanking.Controller;
 
 import com.mindhub.homebanking.Dtos.ClientDTO;
 import com.mindhub.homebanking.Models.Account;
+import com.mindhub.homebanking.Models.AccountType;
 import com.mindhub.homebanking.Models.Client;
 import com.mindhub.homebanking.Repository.AccountRepository;
 import com.mindhub.homebanking.Repository.ClientRepository;
@@ -23,10 +24,7 @@ import static java.util.stream.Collectors.toList;
 @RestController
 public class ClientController {
 
-  /*  @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private AccountRepository accountRepository;*/
+
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -84,7 +82,7 @@ public class ClientController {
 
             Client clientRegister = new Client(firstName, lastName, email, passwordEncoder.encode(password));
             clientService.saveClient(clientRegister);
-            Account accountRegister = new Account(accountAleatory, LocalDateTime.now(), 0);
+            Account accountRegister = new Account(accountAleatory, LocalDateTime.now(), 0,true, AccountType.SAVINGS);
             clientRegister.addAccount(accountRegister);
             accountService.saveAccount(accountRegister);
 

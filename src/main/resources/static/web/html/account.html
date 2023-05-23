@@ -60,40 +60,40 @@
      
     </header>
     <main >
-        <h2 class=" titulos text-center p-3 fs-1">
+        <h2 class=" titulos text-center text-white p-3 fs-1">
             Transactions
         </h2>
         <a href="./accounts.html"><img class="img-logo-back" src="../css/imagenes/back--v1.png"></a></img>
 
 
    <div class="d-flex container gap-5">
-    <div class="container-account">
+    <!-- <div class="container-account">
         <div class="card-account gap-3"> 
             <h3>account : {{account.number}}</h3>
-            <h5>Balance : $ {{account.balance}}</h5>
+            <h5>Balance : $ {{account.balance.toLocaleString('en-US')}}</h5>
             <h5>Created : {{account.creationDate.slice(0,10)}} {{account.creationDate.slice(11,16)}}</h5>  
-            <!-- <h5><a class="btn " :href="'../html/account.html?id='+dato.id"> Transaction</a></h5>  -->
-        </div>
-    </div>
-<table class=" table table-striped m-0 m-auto tabla-loans" >
-    
-      <tr class="titulo-tabla">
-        <td >Date</td>
-        <td >Amount</td>
-        <td >Type</td>
-        <td >Description</td>
-        <td> balance</td>
-      </tr>
-
-      <tr v-bind:class="transaction.type" v-for="transaction of transactions">
-        <td > {{transaction.date.slice(0,10)}} {{transaction.date.slice(11,16)}}</td>
-        <td >{{transaction.amount}}</td>
-        <td > {{transaction.type}}</td>
-        <td>{{transaction.description}}</td>
-        <td>{{transaction.balanceTransaction}}</td>
+             <h5><a class="btn " :href="'../html/account.html?id='+dato.id"> Transaction</a></h5>  
+        </div> -->
         
-      </tr>
-  </table>
+        <table class=" table table-striped m-0 m-auto tabla-loans" >
+            
+            <tr class="titulo-tabla">
+                <td >Date</td>
+                <td >Amount</td>
+                <td >Type</td>
+                <td >Description</td>
+                <td> balance</td>
+            </tr>
+
+            <tr v-bind:class="transaction.type" v-for="transaction of transactions">
+                <td > {{transaction.date.slice(0,10)}} {{transaction.date.slice(11,16)}}</td>
+                <td >$ {{transaction.amount.toLocaleString('en-US')}}</td>
+                <td > {{transaction.type}}</td>
+                <td>{{transaction.description}}</td>
+                <td>$ {{transaction.balanceTransaction.toLocaleString('en-US')}}</td>
+                
+            </tr>
+        </table>
    </div>
 
     </main>

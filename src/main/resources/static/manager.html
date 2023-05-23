@@ -49,7 +49,53 @@
                 <td colspan="2" class="text-center">{{dato.email}}</td>
               </tr>
         </table>
+
+     <div class="container d-flex justify-content-around p-4 ">
+        <form @submit.prevent="createLoan" class="loan-form">
+            <div class="form-group">
+                <label for="name">Loan Name:</label>
+                <input type="text" id="name" v-model="loanName" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="maxAmount">Amount max:</label>
+                <input type="number" id="maxAmount" v-model="maxAmount" required>
+            </div>
+    
+            <!-- <div class="form-group"> -->
+                <div class="form-check">
+                   <label><input type="checkbox"  value="6" v-model="checked">
+                    6</label>
+                </div>
+                <div class="form-check">
+                     <label><input type="checkbox"  value="12" v-model="checked">
+                   12</label>
+                </div>
+                <div class="form-check">
+                   <label><input type="checkbox"  value="24" v-model="checked" >
+                    24</label>
+                </div>
+                <div class="form-check">
+                    <label>
+                    <input type="checkbox"  value="36" v-model="checked" >
+                     36</label>
+                </div>
+                <div class="form-check">
+                    <label> <input type="checkbox" value="48" v-model="checked">
+                   48</label>
+                </div>
+                <div class="form-check">
+                   <label><input type="checkbox" value="60" v-model="checked" >
+                    60</label>
+                </div>
+            <!-- </div> -->
+    
+            <button type="submit" class="btn-submit">Crear préstamo</button>
+        </form>
+     </div>
     </main>
+
+
     <footer class=" bg-black">
         <h5 class=" text-white m-0 m-auto text-center"> cohort 44 </h5>
     </footer>

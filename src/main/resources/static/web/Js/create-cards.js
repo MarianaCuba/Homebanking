@@ -18,7 +18,7 @@ createApp({
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: "email or password",
+          text: error.response.data,
           
      
         })

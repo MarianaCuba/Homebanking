@@ -25,4 +25,9 @@ public class LoanServiceImplement implements LoanService {
     public List<LoanDTO> getLoanDto() {
         return loanRepository.findAll().stream().map(loan -> new LoanDTO(loan)).collect(Collectors.toList());
     }
+
+    @Override
+    public void saveLoan(Loan loan) {
+        loanRepository.save(loan);
+    }
 }

@@ -60,7 +60,7 @@
         <main>
             {{loanSelect}} 
             {{interes}}
-            <div class="d-flex justify-content-center pt-5">
+            <div class="d-flex justify-content-center pt-5 flex-wrap">
                 <form  class="p-3 rounded fondo-login" @submit.prevent="createLoan">
                     <h2 class="text-center">loans</h2>
                     <div class="d-flex gap-3 ">
@@ -75,7 +75,7 @@
                         <label for="amount" class="form-label">Amount</label>
                         <input type="number" id="amount" v-model="amount">
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 d-flex flex-wrap">
                         <label for="payments" class="form-label">Payments</label>
                         <select class="form-select mb-3" aria-label="Default select example" v-model="selectPayments" required id="payments">
                             <option selected class="fs-6" value="">Select menu</option>

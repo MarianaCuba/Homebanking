@@ -39,20 +39,20 @@ public class HomebankingApplication {
 			Client client1 = new Client("Melba", "Morel","melba@mindhub.com", passwordEncoder.encode("asd234"));
 			Client client2 = new Client("Mariana","Cuba","mari04@gmail.com",passwordEncoder.encode("asd124"));
 
-			Account account1= new Account("VIN 0001", now,5000);
-			Account account2= new Account("VIN 0002",now.plusDays(1),7500);
+			Account account1= new Account("VIN 0001", now,5000,true,AccountType.SAVINGS);
+			Account account2= new Account("VIN 0002",now.plusDays(1),7500,true, AccountType.CURRENT);
 
-			Account accountResgister = new Account(numeroCuenta, now, 0);
+			Account accountResgister = new Account(numeroCuenta, now, 0, true, AccountType.SAVINGS);
 
-			Transaction transaction1 = new Transaction(100.55, TransactionType.CREDIT,"varios",now,10.0);
-			Transaction transaction2 = new Transaction(1500.98, TransactionType.DEBIT, "otros",now,10.0);
-			Transaction transaction3 = new Transaction(1350.78, TransactionType.DEBIT,"clothes",now.plusDays(1),13.0);
-			Transaction transaction4 = new Transaction(2000, TransactionType.CREDIT,"ingreso", now.plusDays(1),14.0);
-			Transaction transaction5 = new Transaction(300,TransactionType.DEBIT, "candies",now,5.0);
+			Transaction transaction1 = new Transaction(100.55, TransactionType.CREDIT,"varios",now,1000.0,true);
+			Transaction transaction2 = new Transaction(1500.98, TransactionType.DEBIT, "otros",now,1000.0,true);
+			Transaction transaction3 = new Transaction(1350.78, TransactionType.DEBIT,"clothes",now.plusDays(1),13000.0,true);
+			Transaction transaction4 = new Transaction(2000, TransactionType.CREDIT,"ingreso", now.plusDays(1),1400.0,true);
+			Transaction transaction5 = new Transaction(300,TransactionType.DEBIT, "candies",now,5000.0,true);
 
-			Loan loan1 = new Loan( "person", 100000, List.of( 6,12,24));
-			Loan loan2 = new Loan("mortgage", 500000, List.of(12,24,36,48,60));
-			Loan loan3 = new Loan("automotive", 300000,List.of(6,12,24,36));
+			Loan loan1 = new Loan( "person", 100000, List.of( 6,12,24), 1.10);
+			Loan loan2 = new Loan("mortgage", 500000, List.of(12,24,36,48,60),1.20);
+			Loan loan3 = new Loan("automotive", 300000,List.of(6,12,24,36),1.30);
 
 			loanRepository.save(loan1);
 			loanRepository.save(loan2);

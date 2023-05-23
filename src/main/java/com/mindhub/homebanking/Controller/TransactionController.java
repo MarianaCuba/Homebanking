@@ -73,8 +73,8 @@ public class TransactionController {
         Double newInitialAccount = accountInitial.getBalance();
         Double newDestinateAccount = accountDestinate.getBalance();
 
-        Transaction debitTransaction = new Transaction( amount,TransactionType.DEBIT, description, LocalDateTime.now(),newInitialAccount);
-        Transaction creditTransaction = new Transaction( amount, TransactionType.CREDIT, description,LocalDateTime.now(),newDestinateAccount);
+        Transaction debitTransaction = new Transaction( amount,TransactionType.DEBIT, description, LocalDateTime.now(),newInitialAccount,true);
+        Transaction creditTransaction = new Transaction( amount, TransactionType.CREDIT, description,LocalDateTime.now(),newDestinateAccount,true);
 
         accountInitial.addTransaction(debitTransaction);
         debitTransaction.setBalanceTansaction(newInitialAccount-amount);

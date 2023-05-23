@@ -20,7 +20,8 @@ public class Loan {
     @GenericGenerator(name="native", strategy = "native")
     private long id;
     private String name;
-    private double maxAamount;
+    private double maxAmount;
+    private double interest;
 
     @ElementCollection
     private List<Integer> payments = new ArrayList<>();
@@ -28,12 +29,14 @@ public class Loan {
     @OneToMany(mappedBy = "loan", fetch = FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();
 
+
     public Loan(){}
 
-    public Loan(String name, double maxAamount, List<Integer> payments) {
+    public Loan(String name, double maxAmount, List<Integer> payments, double interest) {
         this.name = name;
-        this.maxAamount = maxAamount;
+        this.maxAmount = maxAmount;
         this.payments = payments;
+        this.interest = interest;
     }
 
     public long getId() {
@@ -50,14 +53,15 @@ public class Loan {
 
 
 
-    public double getMaxAamount() {
-        return maxAamount;
+    public double getMaxAmount() {
+        return maxAmount;
     }
 
 
-    public void setMaxAamount(double maxAamount) {
-        this.maxAamount = maxAamount;
+    public void setMaxAmount(double maxAamount) {
+        this.maxAmount = maxAamount;
     }
+
 
     public List<Integer> getPayments() {
         return payments;
@@ -75,6 +79,14 @@ public class Loan {
         this.clientLoans = clientLoans;
     }
 
+    public double getInterest() {
+        return interest;
+    }
+
+    public void setInterest(double interest) {
+        this.interest = interest;
+    }
+
     public void addClientLoan(ClientLoan clientLoan){
         clientLoan.setLoan(this);
         clientLoans.add(clientLoan);
@@ -88,7 +100,7 @@ public class Loan {
         return "Loan{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", amount=" + maxAamount +
+                ", amount=" + maxAmount +
                 ", payments=" + payments +
                 '}';
     }

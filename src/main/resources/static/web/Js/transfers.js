@@ -9,6 +9,7 @@ createApp({
             account : "",
             amount : "",
             destinateAccount: "",
+            accounts:[]
             
         }
     },
@@ -20,6 +21,7 @@ createApp({
             axios.get('http://localhost:8080/api/clients/current')
                 .then(response => {
                     this.data = response.data
+                    this.accounts = this.data.accounts.filter(account => account.active);
                     console.log(this.data);
 
                 })
@@ -54,7 +56,7 @@ createApp({
                 inputAttributes: {autocapitalize: 'off'},
                 showCancelButton: true,
                 confirmButtonText: 'Sure',
-                confirmButtonColor: "rgb(16, 204, 88)",
+                confirmButtonColor: "green",
                 preConfirm: () => {
                     return axios.post('/api/clients/current/transactions', `amount=${this.amount}&description=${this.description}&initialAccount=${this.account}&destinateAccount=${this.destinateAccount}`)
                         .then(response =>

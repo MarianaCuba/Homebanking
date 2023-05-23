@@ -6,7 +6,11 @@ createApp({
         datos:[],
         firstName: "" ,
         lastName:"",
-        email:""
+        email:"",
+        loanName:"",
+        maxAmount:"",
+        paymentsText:"",
+        checked:[]
     }
 },
 
@@ -40,9 +44,21 @@ created(){
           .catch(function (error) {
             console.log(error);
           });
+     },
+     createLoan(){
+      axios.post('/api/admin/loans', {
+        name: this.loanName,
+        maxAmount : this.maxAmount,
+        payments : this.checked,
+        
+      }).then(response => {
+       // this.loadData();
+        window.location.href="./manager.html"})
+
+      
      }
 
     }
 
-
+//`name=${this.loanName}&amount=${this.maxAmount}&payments=${this.paymentsText}`
 }).mount("#app")

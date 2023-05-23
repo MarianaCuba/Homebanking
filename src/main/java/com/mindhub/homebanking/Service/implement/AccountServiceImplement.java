@@ -40,4 +40,7 @@ public class AccountServiceImplement implements AccountService {
     public Account findByNumber(String number) {
         return accountRepository.findByNumber(number);
     }
+    public Account findById(long id){
+        return accountRepository.findById(id).orElse(null);
+    }
 }
